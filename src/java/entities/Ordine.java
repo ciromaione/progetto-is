@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -50,8 +49,8 @@ public class Ordine implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date data;
     
-    @Column(name = "totale")
-    private BigDecimal totale;
+    @Column(name = "totale_cent")
+    private Integer totaleCent;
     
     @JoinTable(name = "ordineXpiatto", joinColumns = {
         @JoinColumn(name = "id_ordine", referencedColumnName = "id")}, inverseJoinColumns = {
@@ -66,9 +65,9 @@ public class Ordine implements Serializable {
         this.id = id;
     }
 
-    public Ordine(Date data, BigDecimal totale, Collection<Piatto> piatti) {
+    public Ordine(Date data, Integer totaleCent, Collection<Piatto> piatti) {
         this.data = data;
-        this.totale = totale;
+        this.totaleCent = totaleCent;
         this.piatti = piatti;
     }
     
@@ -89,13 +88,14 @@ public class Ordine implements Serializable {
         this.data = data;
     }
 
-    public BigDecimal getTotale() {
-        return totale;
+    public Integer getTotaleCent() {
+        return totaleCent;
     }
 
-    public void setTotale(BigDecimal totale) {
-        this.totale = totale;
+    public void setTotaleCent(Integer totaleCent) {
+        this.totaleCent = totaleCent;
     }
+
 
     @XmlTransient
     public Collection<Piatto> getPiatti() {
@@ -105,10 +105,23 @@ public class Ordine implements Serializable {
     public void setPiatti(Collection<Piatto> piatti) {
         this.piatti = piatti;
     }
+    
+    public String getPrezzoString() {
+        String price = Integer.toString(this.totaleCent);
+        int size = price.length();
+        switch (size) {
+            case 1:
+                return "0,0" + price;
+            case 2:
+                return "0," + price;
+            default:
+                return price.substring(0, size-2)+","+price.substring(size-2);
+        }
+    }
 
     @Override
     public String toString() {
-        return "Ordine{" + "id=" + id + ", data=" + data + ", totale=" + totale + ", piatti=" + piatti + '}';
+        return "Ordine{" + "id=" + id + ", data=" + data + ", totaleCent=" + totaleCent + ", piatti=" + piatti + '}';
     }
 
     

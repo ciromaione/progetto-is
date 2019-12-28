@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -56,8 +55,8 @@ public class Piatto implements Serializable {
     @Column(name = "foto")
     private String foto;
     
-    @Column(name = "prezzo")
-    private BigDecimal prezzo;
+    @Column(name = "prezzo_cent")
+    private Integer prezzoCent;
     
     @Size(max = 30)
     @Column(name = "categoria")
@@ -93,10 +92,10 @@ public class Piatto implements Serializable {
         this.nome = nome;
     }
 
-    public Piatto(String nome, String foto, BigDecimal prezzo, String categoria, Collection<Ingrediente> ingredientiRimovibili, Collection<Ingrediente> ingredientiAggiungibili, Collection<Ingrediente> ingredienti) {
+    public Piatto(String nome, String foto, Integer prezzo, String categoria, Collection<Ingrediente> ingredientiRimovibili, Collection<Ingrediente> ingredientiAggiungibili, Collection<Ingrediente> ingredienti) {
         this.nome = nome;
         this.foto = foto;
-        this.prezzo = prezzo;
+        this.prezzoCent = prezzo;
         this.categoria = categoria;
         this.ingredientiRimovibili = ingredientiRimovibili;
         this.ingredientiAggiungibili = ingredientiAggiungibili;
@@ -128,12 +127,12 @@ public class Piatto implements Serializable {
         this.foto = foto;
     }
 
-    public BigDecimal getPrezzo() {
-        return prezzo;
+    public Integer getPrezzoCent() {
+        return prezzoCent;
     }
 
-    public void setPrezzo(BigDecimal prezzo) {
-        this.prezzo = prezzo;
+    public void setPrezzo(Integer prezzoCent) {
+        this.prezzoCent = prezzoCent;
     }
 
     public String getCategoria() {
@@ -171,6 +170,24 @@ public class Piatto implements Serializable {
         this.ingredienti = ingredienti;
     }
 
+    public String getPrezzoString() {
+        String price = Integer.toString(this.prezzoCent);
+        int size = price.length();
+        switch (size) {
+            case 1:
+                return "0,0" + price;
+            case 2:
+                return "0," + price;
+            default:
+                return price.substring(0, size-2)+","+price.substring(size-2);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Piatto{" + "id=" + id + ", nome=" + nome + ", foto=" + foto + ", prezzoCent=" + prezzoCent + ", categoria=" + categoria + ", ingredientiRimovibili=" + ingredientiRimovibili + ", ingredientiAggiungibili=" + ingredientiAggiungibili + ", ingredienti=" + ingredienti + '}';
+    }
+    
     
     
 }

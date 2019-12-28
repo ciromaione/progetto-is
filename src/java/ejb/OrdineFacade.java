@@ -22,6 +22,9 @@ public class OrdineFacade {
     @PersistenceContext(unitName = "MENU_MAXI_SERVERPU")
     private EntityManager em;
 
+    public OrdineFacade() {
+    }
+
     public void addIngrediente(Ordine ordine) {
         em.persist(ordine);
     }

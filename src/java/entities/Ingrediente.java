@@ -6,22 +6,18 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,8 +49,8 @@ public class Ingrediente implements Serializable {
     @Column(name = "categoria")
     private String categoria;
     
-    @Column(name = "sovrapprezzo")
-    private BigDecimal sovrapprezzo;
+    @Column(name = "sovrapprezzo_cent")
+    private Integer sovrapprezzoCent;
 
     public Ingrediente() {
     }
@@ -68,10 +64,10 @@ public class Ingrediente implements Serializable {
         this.nome = nome;
     }
 
-    public Ingrediente(String nome, String categoria, BigDecimal sovrapprezzo) {
+    public Ingrediente(String nome, String categoria, Integer sovrapprezzoCent) {
         this.nome = nome;
         this.categoria = categoria;
-        this.sovrapprezzo = sovrapprezzo;
+        this.sovrapprezzoCent = sovrapprezzoCent;
     }
 
     public Integer getId() {
@@ -98,17 +94,30 @@ public class Ingrediente implements Serializable {
         this.categoria = categoria;
     }
 
-    public BigDecimal getSovrapprezzo() {
-        return sovrapprezzo;
+    public Integer getSovrapprezzoCent() {
+        return sovrapprezzoCent;
     }
 
-    public void setSovrapprezzo(BigDecimal sovrapprezzo) {
-        this.sovrapprezzo = sovrapprezzo;
+    public void setSovrapprezzoCent(Integer sovrapprezzoCent) {
+        this.sovrapprezzoCent = sovrapprezzoCent;
     }
 
+    public String getPrezzoString() {
+        String price = Integer.toString(this.sovrapprezzoCent);
+        int size = price.length();
+        switch (size) {
+            case 1:
+                return "0,0" + price;
+            case 2:
+                return "0," + price;
+            default:
+                return price.substring(0, size-2)+","+price.substring(size-2);
+        }
+    }
+    
     @Override
     public String toString() {
-        return "Ingrediente{" + "id=" + id + ", nome=" + nome + ", categoria=" + categoria + ", sovrapprezzo=" + sovrapprezzo + '}';
+        return "Ingrediente{" + "id=" + id + ", nome=" + nome + ", categoria=" + categoria + ", sovrapprezzoCent=" + sovrapprezzoCent + '}';
     }
 
     

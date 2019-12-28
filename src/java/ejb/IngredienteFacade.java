@@ -22,6 +22,9 @@ public class IngredienteFacade {
     @PersistenceContext(unitName = "MENU_MAXI_SERVERPU")
     private EntityManager em;
 
+    public IngredienteFacade() {
+    }
+
     public void addIngrediente(Ingrediente ingrediente) {
         em.persist(ingrediente);
     }
