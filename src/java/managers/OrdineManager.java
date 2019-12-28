@@ -6,8 +6,6 @@
 package managers;
 
 import entities.*;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import javax.ejb.Singleton;
