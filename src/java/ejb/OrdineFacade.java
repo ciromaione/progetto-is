@@ -6,9 +6,11 @@
 package ejb;
 
 import entities.Ordine;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,5 +28,16 @@ public class OrdineFacade {
     
     public void removeIngrediente(Ordine ordine) {
         em.remove(em.merge(ordine));
+    }
+    
+    public List<Ordine> findAll() {
+        TypedQuery<Ordine> query = em.createNamedQuery("Ordine.findAll", Ordine.class);
+        return query.getResultList();
+    }
+    
+    public Ordine findById(Integer id) {
+        TypedQuery<Ordine> query = em.createNamedQuery("Ordine.findById", Ordine.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 }

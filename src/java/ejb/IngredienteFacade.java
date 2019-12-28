@@ -6,9 +6,11 @@
 package ejb;
 
 import entities.Ingrediente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +30,15 @@ public class IngredienteFacade {
         em.remove(em.merge(ingrediente));
     }
     
+    public List<Ingrediente> findAll() {
+        TypedQuery<Ingrediente> query = em.createNamedQuery("Ingrediente.findAll", Ingrediente.class);
+        return query.getResultList();
+    }
+    
+    public Ingrediente findById(Integer id) {
+        TypedQuery<Ingrediente> query = em.createNamedQuery("Ingrediente.findById", Ingrediente.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
     
 }
