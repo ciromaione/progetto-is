@@ -35,9 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Piatto.findAll", query = "SELECT p FROM Piatto p"),
     @NamedQuery(name = "Piatto.findById", query = "SELECT p FROM Piatto p WHERE p.id = :id"),
-    @NamedQuery(name = "Piatto.findByNome", query = "SELECT p FROM Piatto p WHERE p.nome = :nome"),
-    @NamedQuery(name = "Piatto.findByFoto", query = "SELECT p FROM Piatto p WHERE p.foto = :foto"),
-    @NamedQuery(name = "Piatto.findByPrezzo", query = "SELECT p FROM Piatto p WHERE p.prezzo = :prezzo"),
     @NamedQuery(name = "Piatto.findByCategoria", query = "SELECT p FROM Piatto p WHERE p.categoria = :categoria")})
 public class Piatto implements Serializable {
 

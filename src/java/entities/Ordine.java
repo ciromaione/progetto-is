@@ -36,8 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Ordine.findAll", query = "SELECT o FROM Ordine o"),
     @NamedQuery(name = "Ordine.findById", query = "SELECT o FROM Ordine o WHERE o.id = :id"),
-    @NamedQuery(name = "Ordine.findByData", query = "SELECT o FROM Ordine o WHERE o.data = :data"),
-    @NamedQuery(name = "Ordine.findByTotale", query = "SELECT o FROM Ordine o WHERE o.totale = :totale")})
+    @NamedQuery(name = "Ordine.findByData", query = "SELECT o FROM Ordine o WHERE o.data = :data")})
 public class Ordine implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,7 +57,7 @@ public class Ordine implements Serializable {
         @JoinColumn(name = "id_ordine", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "id_piatto", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Piatto> piattoCollection;
+    private Collection<Piatto> piatti;
 
     public Ordine() {
     }
@@ -67,10 +66,10 @@ public class Ordine implements Serializable {
         this.id = id;
     }
 
-    public Ordine(Date data, BigDecimal totale, Collection<Piatto> piattoCollection) {
+    public Ordine(Date data, BigDecimal totale, Collection<Piatto> piatti) {
         this.data = data;
         this.totale = totale;
-        this.piattoCollection = piattoCollection;
+        this.piatti = piatti;
     }
     
 
@@ -99,17 +98,17 @@ public class Ordine implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Piatto> getPiattoCollection() {
-        return piattoCollection;
+    public Collection<Piatto> getPiatti() {
+        return piatti;
     }
 
-    public void setPiattoCollection(Collection<Piatto> piattoCollection) {
-        this.piattoCollection = piattoCollection;
+    public void setPiatti(Collection<Piatto> piatti) {
+        this.piatti = piatti;
     }
 
     @Override
     public String toString() {
-        return "Ordine{" + "id=" + id + ", data=" + data + ", totale=" + totale + ", piattoCollection=" + piattoCollection + '}';
+        return "Ordine{" + "id=" + id + ", data=" + data + ", totale=" + totale + ", piatti=" + piatti + '}';
     }
 
     
