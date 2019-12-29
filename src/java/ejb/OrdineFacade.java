@@ -25,11 +25,11 @@ public class OrdineFacade {
     public OrdineFacade() {
     }
 
-    public void addIngrediente(Ordine ordine) {
+    public void addOrdine(Ordine ordine) {
         em.persist(ordine);
     }
     
-    public void removeIngrediente(Ordine ordine) {
+    public void removeOrdine(Ordine ordine) {
         em.remove(em.merge(ordine));
     }
     

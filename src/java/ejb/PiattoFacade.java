@@ -6,6 +6,7 @@
 package ejb;
 
 import entities.Piatto;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,11 +26,11 @@ public class PiattoFacade {
     public PiattoFacade() {
     }
 
-    public void addIngrediente(Piatto piatto) {
+    public void addPiatto(Piatto piatto) {
         em.persist(piatto);
     }
     
-    public void removeIngrediente(Piatto piatto) {
+    public void removePiatto(Piatto piatto) {
         em.remove(em.merge(piatto));
     }
     
@@ -46,6 +47,12 @@ public class PiattoFacade {
     
     public List<String> findCategorie() {
         TypedQuery<String> query = em.createNamedQuery("Piatto.findCategorie", String.class);
+        return query.getResultList();
+    }
+    
+    public List<Piatto> findByIds(Collection<Integer> ids) {
+        TypedQuery<Piatto> query = em.createNamedQuery("Piatto.findByIds", Piatto.class);
+        query.setParameter("ids", ids);
         return query.getResultList();
     }
     
