@@ -5,10 +5,10 @@
  */
 package managers;
 
-import ejb.OrdineFacade;
+import dao.OrdineDAO;
 import entities.*;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
@@ -23,10 +23,10 @@ public class OrdineManager {
     private HashMap<String, Ordine> ordiniAttivi;
     
     @Inject
-    private OrdineFacade of;
+    private OrdineDAO od;
 
     public OrdineManager() {
-        this.ordiniAttivi = new HashMap<String, Ordine>();
+        this.ordiniAttivi = new HashMap<>();
     }
     
     public void addToOrdiniAttivi(String tavolo, Collection<Piatto> piatti, Integer totCent) {
@@ -40,11 +40,11 @@ public class OrdineManager {
                     .setTotaleCent(totCent + ordiniAttivi.get(tavolo).getTotaleCent());
         }
         else
-            ordiniAttivi.put(tavolo, new Ordine(new Date(), totCent, piatti));
+            ordiniAttivi.put(tavolo, new Ordine(new Date(new java.util.Date().getTime()), totCent, piatti));
     }
     
     public void removeFromOrdiniAttivi(String tavolo) {
-        of.addOrdine(ordiniAttivi.get(tavolo));
+        od.save(ordiniAttivi.get(tavolo));
         ordiniAttivi.remove(tavolo);
     }
     

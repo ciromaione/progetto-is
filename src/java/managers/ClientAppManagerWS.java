@@ -5,7 +5,7 @@
  */
 package managers;
 
-import ejb.PiattoFacade;
+import dao.PiattoDAO;
 import entities.OrdineCliente;
 import entities.Piatto;
 import entities.PiattoFinale;
@@ -33,7 +33,7 @@ import javax.ws.rs.core.Response;
 public class ClientAppManagerWS {
 
     @Inject
-    private PiattoFacade pf;
+    private PiattoDAO pd;
     @Inject
     private OrdineManager om;
     
@@ -42,14 +42,14 @@ public class ClientAppManagerWS {
     @Path("menu")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Piatto> getMenu() {
-        return pf.findAll();
+        return pd.findAll();
     }
     
     @GET
     @Path("categorie")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<String> getCategorie() {
-        return pf.findCategorie();
+        return pd.findCategorie();
     }
     
     @POST
@@ -57,10 +57,11 @@ public class ClientAppManagerWS {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response confermaOrdine(OrdineCliente ordineCliente) {
         try {
-            ArrayList<Integer> ids = new ArrayList<>();
+            Collection <Piatto> piatti = new ArrayList<>();
             for(PiattoFinale p:ordineCliente.getPiatti())
-                ids.add(p.getIdPiatto());
-            Collection <Piatto> piatti = pf.findByIds(ids);
+                for(int i = 0; i<p.getQuantita(); ++i)
+                    piatti.add(new Piatto(p.getIdPiatto()));
+            
             om.addToOrdiniAttivi(ordineCliente.getTavolo(), piatti, ordineCliente.getTotaleCent());
         } catch (Throwable t) {
             t.printStackTrace();

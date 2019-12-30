@@ -49,6 +49,10 @@ public class Piatto implements Serializable {
         this.ingredienti = ingredienti;
     }
 
+    public Piatto(Integer id) {
+        this.id = id;
+    }
+
     
     public Integer getId() {
         return id;

@@ -18,6 +18,7 @@ public class PiattoFinale implements Serializable {
     
     private Integer idPiatto;
     private String nomePiatto;
+    private Integer quantita;
     private List<String> ingredientiPiatto;
 
     public PiattoFinale(Integer idPiatto, String nomePiatto, List<String> ingredientiPiatto) {
@@ -43,6 +44,14 @@ public class PiattoFinale implements Serializable {
 
     public void setNomePiatto(String nomePiatto) {
         this.nomePiatto = nomePiatto;
+    }
+
+    public Integer getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(Integer quantita) {
+        this.quantita = quantita;
     }
 
     public List<String> getIngredientiPiatto() {

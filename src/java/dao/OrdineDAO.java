@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.HashMap;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -27,7 +29,7 @@ public class OrdineDAO {
     public OrdineDAO() {
     }
 
-    public Ordine save(Ordine entity) {
+    public void save(Ordine entity) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "INSERT INTO ordine (data, totale_cent) "
@@ -42,22 +44,38 @@ public class OrdineDAO {
             else
                 throw new RuntimeException();
             
-            for (Piatto p : entity.getPiatti()) {
-                ps = conn.prepareStatement(""
-                        + "INSERT INTO ordineXpiatto (id_ordine, id_piatto) "
-                        + "VALUES (?, ?)");
-                ps.setInt(1, entity.getId());
-                ps.setInt(2, p.getId());
-                ps.executeUpdate();
-            }
- 
-            return entity;
+            addPiatti(entity.getId(), entity.getPiatti());
             
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
+    private void addPiatti(Integer idOrdine, Collection<Piatto> piatti) throws SQLException {
+        class PQuant {
+            public Integer id;
+            public Integer q;
+            public PQuant(Integer id) {this.id = id; q = 0;}
+            public void increment() {q+=1;}
+        }
+        HashMap<Integer, PQuant> pquant = new HashMap<>();
+        for (Piatto p:piatti)
+            if(pquant.containsKey(p.getId()))
+                pquant.get(p.getId()).increment();
+            else
+                pquant.put(p.getId(), new PQuant(p.getId()));
+        PreparedStatement ps;
+        for(PQuant pq:pquant.values()) {
+            ps = conn.prepareStatement(""
+                        + "INSERT INTO ordineXpiatto (id_ordine, id_piatto, quantita) "
+                        + "VALUES (?, ?, ?)");
+            ps.setInt(1, idOrdine);
+            ps.setInt(2, pq.id);
+            ps.setInt(3, pq.q);
+            ps.executeUpdate();
+        }
+                    
+    }
     
     
 }
