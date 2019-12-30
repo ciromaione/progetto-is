@@ -26,7 +26,7 @@ public class ConnectionProducer {
         Connection conn = null;
         try {
             InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource)ctx.lookup("");
+            DataSource ds = (DataSource)ctx.lookup("jdbc/menumaxi");
             conn = ds.getConnection();
         } catch (NamingException | SQLException ex) {
             ex.printStackTrace();

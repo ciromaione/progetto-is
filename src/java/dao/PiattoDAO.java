@@ -113,7 +113,7 @@ public class PiattoDAO {
     
     private Collection<Ingrediente> getIngredientiList(int id, String table) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(""
-                + "SELECT i.id, i.nome, i.categoria, i.sovrapprezzoCent "
+                + "SELECT i.id, i.nome, i.categoria, i.sovrapprezzo_cent "
                     + "FROM ingrediente i, "+table+" pi "
                     + "WHERE pi.id_piatto = ?");
         ps.setInt(1, id);

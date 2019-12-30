@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -56,7 +55,7 @@ public class IngredienteDAO {
     public Ingrediente findById(Integer id) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
-                    + "SELECT id, nome, categoria, sovrapprezzoCent "
+                    + "SELECT id, nome, categoria, sovrapprezzo_cent "
                     + "FROM ingrediente "
                     + "WHERE id = ?");
             ps.setInt(1, id);
@@ -81,7 +80,7 @@ public class IngredienteDAO {
     public List<Ingrediente> findAll() {
         try {
             PreparedStatement ps = conn.prepareStatement(""
-                    + "SELECT id, nome, categoria, sovrapprezzoCent "
+                    + "SELECT id, nome, categoria, sovrapprezzo_cent "
                     + "FROM ingrediente");
             
             ResultSet rs = ps.executeQuery();
