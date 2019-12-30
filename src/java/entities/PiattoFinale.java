@@ -5,6 +5,7 @@
  */
 package entities;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ciro
  */
 @XmlRootElement
-public class PiattoFinale {
+public class PiattoFinale implements Serializable {
     
     private Integer idPiatto;
     private String nomePiatto;

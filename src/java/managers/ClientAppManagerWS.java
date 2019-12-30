@@ -23,11 +23,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
 /**
  *
  * @author ciro
  */
-@Path("/clientmanager")
+@Path("clientmanager")
 @Stateless
 public class ClientAppManagerWS {
 
@@ -38,21 +39,21 @@ public class ClientAppManagerWS {
     
     
     @GET
-    @Path("/menu")
+    @Path("menu")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Piatto> getMenu() {
         return pf.findAll();
     }
     
     @GET
-    @Path("/categorie")
+    @Path("categorie")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<String> getCategorie() {
         return pf.findCategorie();
     }
     
     @POST
-    @Path("/conferma")
+    @Path("conferma")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response confermaOrdine(OrdineCliente ordineCliente) {
         try {
@@ -68,7 +69,7 @@ public class ClientAppManagerWS {
         return Response.ok().build();
         /*-----------
         * * * * * * * * *
-        * * * * * * * * * 
+        * * * * * * * * *  implements AbstractDAO<Piatto>
             MANCA VISUALIZZAZIONE ORDINE
         * * * * * * * * *
         * * * * * * * * * 

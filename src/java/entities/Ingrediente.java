@@ -6,62 +6,22 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ciro
  */
-@Entity
-@Table(name = "ingrediente")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Ingrediente.findAll", query = "SELECT i FROM Ingrediente i"),
-    @NamedQuery(name = "Ingrediente.findById", query = "SELECT i FROM Ingrediente i WHERE i.id = :id"),
-    @NamedQuery(name = "Ingrediente.findByCategoria", query = "SELECT i FROM Ingrediente i WHERE i.categoria = :categoria")})
 public class Ingrediente implements Serializable {
-
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    
     private Integer id;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nome")
     private String nome;
-    
-    @Size(max = 20)
-    @Column(name = "categoria")
     private String categoria;
-    
-    @Column(name = "sovrapprezzo_cent")
     private Integer sovrapprezzoCent;
 
     public Ingrediente() {
-    }
-
-    public Ingrediente(Integer id) {
-        this.id = id;
-    }
-
-    public Ingrediente(Integer id, String nome) {
-        this.id = id;
-        this.nome = nome;
     }
 
     public Ingrediente(String nome, String categoria, Integer sovrapprezzoCent) {

@@ -5,13 +5,17 @@
  */
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ciro
  */
-public class OrdineCliente {
+@XmlRootElement
+public class OrdineCliente implements Serializable {
+   private static final long serialVersionUID = 1L;
     
    private String tavolo;
    private ArrayList<PiattoFinale> piatti;
