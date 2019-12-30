@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managers;
+package model.managers;
 
-import dao.OrdineDAO;
-import entities.*;
+import model.dao.OrdineDAO;
 import java.util.Collection;
 import java.sql.Date;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import model.entities.Ordine;
+import model.entities.Piatto;
 
 /**
  *

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managers;
+package service;
 
-import dao.PiattoDAO;
-import entities.OrdineCliente;
-import entities.Piatto;
-import entities.PiattoFinale;
+import model.dao.PiattoDAO;
+import model.entities.OrdineCliente;
+import model.entities.Piatto;
+import model.entities.PiattoFinale;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import model.managers.OrdineManager;
 
 
 /**
