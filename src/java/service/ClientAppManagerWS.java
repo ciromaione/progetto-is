@@ -29,7 +29,7 @@ import model.managers.OrdineManager;
  *
  * @author ciro
  */
-@Path("clientmanager")
+@Path("client")
 @Stateless
 public class ClientAppManagerWS {
 
@@ -41,14 +41,14 @@ public class ClientAppManagerWS {
     
     @GET
     @Path("menu")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Piatto> getMenu() {
         return pd.findAll();
     }
     
     @GET
     @Path("categorie")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<String> getCategorie() {
         return pd.findCategorie();
     }

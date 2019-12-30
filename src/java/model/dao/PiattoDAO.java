@@ -36,7 +36,7 @@ public class PiattoDAO {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "INSERT INTO piatto (nome, categoria, prezzo_cent, foto) "
-                    + "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    + "VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, entity.getNome());
             ps.setString(2, entity.getCategoria());
             ps.setInt(3, entity.getPrezzoCent());
@@ -125,7 +125,7 @@ public class PiattoDAO {
             ing.setId(rs.getInt(1));
             ing.setNome(rs.getString(2));
             ing.setCategoria(rs.getString(3));
-            ing.setSovrapprezzoCent(rs.getInt(2));
+            ing.setSovrapprezzoCent(rs.getInt(4));
             all.add(ing);
         }
         return all;

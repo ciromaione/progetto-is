@@ -30,7 +30,7 @@ public class OrdineManager {
         this.ordiniAttivi = new HashMap<>();
     }
     
-    public void addToOrdiniAttivi(String tavolo, Collection<Piatto> piatti, Integer totCent) {
+    public synchronized void addToOrdiniAttivi(String tavolo, Collection<Piatto> piatti, Integer totCent) {
         if(tavolo == null || piatti == null || totCent == null)
             throw new RuntimeException("Argomenti non validi");
         if(ordiniAttivi.containsKey(tavolo)) {
@@ -44,7 +44,7 @@ public class OrdineManager {
             ordiniAttivi.put(tavolo, new Ordine(new Date(new java.util.Date().getTime()), totCent, piatti));
     }
     
-    public void removeFromOrdiniAttivi(String tavolo) {
+    public synchronized void removeFromOrdiniAttivi(String tavolo) {
         od.save(ordiniAttivi.get(tavolo));
         ordiniAttivi.remove(tavolo);
     }

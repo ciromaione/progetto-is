@@ -49,6 +49,17 @@ public class Piatto implements Serializable {
         this.ingredienti = ingredienti;
     }
 
+    public Piatto(Integer id, String nome, String foto, Integer prezzoCent, String categoria, Collection<Ingrediente> ingredientiRimovibili, Collection<Ingrediente> ingredientiAggiungibili, Collection<Ingrediente> ingredienti) {
+        this.id = id;
+        this.nome = nome;
+        this.foto = foto;
+        this.prezzoCent = prezzoCent;
+        this.categoria = categoria;
+        this.ingredientiRimovibili = ingredientiRimovibili;
+        this.ingredientiAggiungibili = ingredientiAggiungibili;
+        this.ingredienti = ingredienti;
+    }
+
     public Piatto(Integer id) {
         this.id = id;
     }
@@ -94,7 +105,6 @@ public class Piatto implements Serializable {
         this.categoria = categoria;
     }
 
-    @XmlTransient
     public Collection<Ingrediente> getIngredientiRimovibili() {
         return ingredientiRimovibili;
     }
@@ -103,7 +113,6 @@ public class Piatto implements Serializable {
         this.ingredientiRimovibili = ingredientiRimovibili;
     }
 
-    @XmlTransient
     public Collection<Ingrediente> getIngredientiAggiungibili() {
         return ingredientiAggiungibili;
     }
@@ -112,7 +121,6 @@ public class Piatto implements Serializable {
         this.ingredientiAggiungibili = ingredientiAggiungibili;
     }
 
-    @XmlTransient
     public Collection<Ingrediente> getIngredienti() {
         return ingredienti;
     }

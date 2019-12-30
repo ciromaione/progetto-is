@@ -30,6 +30,13 @@ public class Ingrediente implements Serializable {
         this.sovrapprezzoCent = sovrapprezzoCent;
     }
 
+    public Ingrediente(Integer id, String nome, String categoria, Integer sovrapprezzoCent) {
+        this.id = id;
+        this.nome = nome;
+        this.categoria = categoria;
+        this.sovrapprezzoCent = sovrapprezzoCent;
+    }
+
     public Integer getId() {
         return id;
     }
