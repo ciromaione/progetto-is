@@ -55,7 +55,7 @@ public class OrdiniSingleton {
         ordiniDaCompletare.remove(index);
     }
     
-    public void removeFromOrdiniAttivi(String tavolo) {
-        ordiniAttivi.remove(tavolo);
+    public OrdineStaff removeFromOrdiniAttivi(String tavolo) {
+        return ordiniAttivi.remove(tavolo);
     }
 }
