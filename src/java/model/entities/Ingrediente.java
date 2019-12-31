@@ -69,7 +69,7 @@ public class Ingrediente implements Serializable {
         this.sovrapprezzoCent = sovrapprezzoCent;
     }
 
-    public String getPrezzoString() {
+    public String getSovrapprezzoString() {
         String price = Integer.toString(this.sovrapprezzoCent);
         int size = price.length();
         switch (size) {

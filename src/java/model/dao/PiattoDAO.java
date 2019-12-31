@@ -116,7 +116,7 @@ public class PiattoDAO {
         PreparedStatement ps = conn.prepareStatement(""
                 + "SELECT i.id, i.nome, i.categoria, i.sovrapprezzo_cent "
                     + "FROM ingrediente i, "+table+" pi "
-                    + "WHERE pi.id_piatto = ?");
+                    + "WHERE pi.id_piatto = ? AND i.id = pi.id_ingrediente");
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
         ArrayList<Ingrediente> all = new ArrayList<>();
