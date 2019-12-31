@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ciro
  */
 @XmlRootElement
-public class PiattoFinale implements Serializable {
+public class PiattoStaff implements Serializable {
     
     private Integer idPiatto;
     private String nomePiatto;
@@ -22,7 +22,7 @@ public class PiattoFinale implements Serializable {
     private List<String> aggiunte;
     private List<String> rimozioni;
 
-    public PiattoFinale(Integer idPiatto, String nomePiatto, Integer quantita, List<String> aggiunte, List<String> rimozioni) {
+    public PiattoStaff(Integer idPiatto, String nomePiatto, Integer quantita, List<String> aggiunte, List<String> rimozioni) {
         this.idPiatto = idPiatto;
         this.nomePiatto = nomePiatto;
         this.quantita = quantita;
@@ -30,7 +30,7 @@ public class PiattoFinale implements Serializable {
         this.rimozioni = rimozioni;
     }
 
-    public PiattoFinale() {
+    public PiattoStaff() {
     }
 
     public Integer getIdPiatto() {

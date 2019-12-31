@@ -7,6 +7,7 @@ package model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -14,17 +15,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ciro
  */
 @XmlRootElement
-public class OrdineCliente implements Serializable {
+public class OrdineStaff implements Serializable {
    private static final long serialVersionUID = 1L;
     
    private String tavolo;
-   private ArrayList<PiattoFinale> piatti;
-   private Integer TotaleCent;
+   private List<PiattoStaff> piatti;
+   private Integer totaleCent;
 
-    public OrdineCliente(String tavolo, ArrayList<PiattoFinale> piatti, Integer TotaleCent) {
+    public OrdineStaff(String tavolo, List<PiattoStaff> piatti, Integer TotaleCent) {
         this.tavolo = tavolo;
         this.piatti = piatti;
-        this.TotaleCent = TotaleCent;
+        this.totaleCent = TotaleCent;
     }
 
     public String getTavolo() {
@@ -35,21 +36,28 @@ public class OrdineCliente implements Serializable {
         this.tavolo = tavolo;
     }
 
-    public ArrayList<PiattoFinale> getPiatti() {
+    public List<PiattoStaff> getPiatti() {
         return piatti;
     }
 
-    public void setPiatti(ArrayList<PiattoFinale> piatti) {
+    public void setPiatti(List<PiattoStaff> piatti) {
         this.piatti = piatti;
+    }
+    
+    public void addPiatti(List<PiattoStaff> piatti) {
+        this.piatti.addAll(piatti);
     }
 
     public Integer getTotaleCent() {
-        return TotaleCent;
+        return totaleCent;
     }
 
-    public void setTotaleCent(Integer TotaleCent) {
-        this.TotaleCent = TotaleCent;
+    public void setTotaleCent(Integer totaleCent) {
+        this.totaleCent = totaleCent;
     }
-   
+    
+    public void addTotaleCent(Integer totaleCent) {
+        this.totaleCent += totaleCent;
+    }
    
 }

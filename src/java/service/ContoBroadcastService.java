@@ -21,7 +21,7 @@ import javax.ws.rs.sse.SseEventSink;
  */
 @Path("staff/conti")
 @Singleton
-public class ContoBroadcasterService extends AbstractBroadcastService {
+public class ContoBroadcastService extends AbstractBroadcastService {
 
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
