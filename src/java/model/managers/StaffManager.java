@@ -5,7 +5,9 @@
  */
 package model.managers;
 
+import java.sql.Connection;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 
 /**
  *
@@ -14,5 +16,16 @@ import javax.ejb.Singleton;
 @Singleton
 public class StaffManager {
 
+    @Inject
+    Connection conn;
+    @Inject
+    OrdiniSingleton os;
+
+    public StaffManager() {
+    }
+    
+    public void stampaConto(String tavolo) {
+        
+    }
     
 }
