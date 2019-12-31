@@ -8,6 +8,7 @@ package model.managers;
 import java.sql.Connection;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import model.entities.OrdineStaff;
 
 /**
  *
@@ -25,7 +26,14 @@ public class StaffManager {
     }
     
     public void stampaConto(String tavolo) {
+        OrdineStaff ordineStaff = os.removeFromOrdiniAttivi(tavolo);
+        if(ordineStaff == null)
+            throw new RuntimeException("Ordine non presente in lista");
         
+        Collection <Piatto> piatti = new ArrayList<>();
+            for(PiattoFinale p:ordineCliente.getPiatti())
+                for(int i = 0; i<p.getQuantita(); ++i)
+                    piatti.add(new Piatto(p.getIdPiatto()));
     }
     
 }
