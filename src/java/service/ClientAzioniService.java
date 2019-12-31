@@ -32,9 +32,9 @@ public class ClientAzioniService {
     
     @Inject
     private OrdineManager om;
-    @Inject
-    private Event<OrdineCliente> eventConferma;
-    @Inject
+    @Inject @Conferma
+    private Event<String> eventConferma;
+    @Inject @Conto
     private Event<String> eventConto;
 
     @POST

@@ -19,12 +19,15 @@ public class PiattoFinale implements Serializable {
     private Integer idPiatto;
     private String nomePiatto;
     private Integer quantita;
-    private List<String> ingredientiPiatto;
+    private List<String> aggiunte;
+    private List<String> rimozioni;
 
-    public PiattoFinale(Integer idPiatto, String nomePiatto, List<String> ingredientiPiatto) {
+    public PiattoFinale(Integer idPiatto, String nomePiatto, Integer quantita, List<String> aggiunte, List<String> rimozioni) {
         this.idPiatto = idPiatto;
         this.nomePiatto = nomePiatto;
-        this.ingredientiPiatto = ingredientiPiatto;
+        this.quantita = quantita;
+        this.aggiunte = aggiunte;
+        this.rimozioni = rimozioni;
     }
 
     public PiattoFinale() {
@@ -54,12 +57,20 @@ public class PiattoFinale implements Serializable {
         this.quantita = quantita;
     }
 
-    public List<String> getIngredientiPiatto() {
-        return ingredientiPiatto;
+    public List<String> getAggiunte() {
+        return aggiunte;
     }
 
-    public void setIngredientiPiatto(List<String> ingredientiPiatto) {
-        this.ingredientiPiatto = ingredientiPiatto;
+    public void setAggiunte(List<String> aggiunte) {
+        this.aggiunte = aggiunte;
+    }
+
+    public List<String> getRimozioni() {
+        return rimozioni;
+    }
+
+    public void setRimozioni(List<String> rimozioni) {
+        this.rimozioni = rimozioni;
     }
     
 }

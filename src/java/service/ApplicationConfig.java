@@ -30,6 +30,8 @@ public class ApplicationConfig extends javax.ws.rs.core.Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(service.ClientAzioniService.class);
         resources.add(service.ClientMenuService.class);
+        resources.add(service.ContoBroadcasterService.class);
+        resources.add(service.OrdineBroadcastService.class);
     }
     
 }
