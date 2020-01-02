@@ -69,13 +69,6 @@ public class StaffManager {
             throw new RuntimeException(ex);
         }
         
-            /*
-                punto della situazione
-            devo rifare la logica di salvataggio ordine accorpando tutto in questa classe
-            devo farlo anche per i manager ancora non fatti (dovro' togliere i dao)
-            devo implementare i servizi del client
-            
-            */
     }
 
     private void salvaPiatti(Integer idOrdine, List<PiattoStaff> piatti) throws SQLException {
