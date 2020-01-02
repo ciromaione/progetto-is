@@ -27,7 +27,7 @@ public class ClienteManager {
     @Inject
     Connection conn;
     
-    public List<Piatto> findAll() {
+    public List<Piatto> getMenu() {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "SELECT id, nome, categoria, prezzo_cent, foto "
@@ -55,7 +55,7 @@ public class ClienteManager {
         }
     }
     
-    public List<String> findCategorie() {
+    public List<String> getCategorie() {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "SELECT DISTINCT categoria "

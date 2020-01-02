@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.dao.PiattoDAO;
 import model.entities.Piatto;
+import model.managers.ClienteManager;
 
 /**
  *
@@ -24,19 +25,19 @@ import model.entities.Piatto;
 public class ClientMenuService {
     
     @Inject
-    private PiattoDAO pd;
+    private ClienteManager cm;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Piatto> getMenu() {
-        return pd.findAll();
+        return cm.getMenu();
     }
     
     @GET
     @Path("categorie")
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getCategorie() {
-        return pd.findCategorie();
+        return cm.getCategorie();
     }
     
 }
