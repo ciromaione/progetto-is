@@ -6,6 +6,7 @@
 package model.managers;
 
 import java.sql.Connection;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -16,29 +17,24 @@ import javax.inject.Inject;
 @Stateless
 public class AuthenticationManager {
     
-    private String hashPasswordTitolare;
-    private String hashPasswordStaff;
-    
-    @Inject
-    Connection conn;
-
     public AuthenticationManager() {
     }
     
+    
     public boolean loginTitolare(String hash) {
-        
+        return true;
     }
     
     public boolean loginStaff(String hash) {
-        
+        return true;
     }
     
     public boolean updatePasswordTitolare(String newPassword) {
-        
+        return true;
     }
     
     public boolean updatePasswordStaff(String newPassword) {
-        
+        return true;
     }
     
 }
