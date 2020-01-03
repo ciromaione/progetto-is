@@ -51,9 +51,12 @@ public class ClientAzioniService {
     }
 
     @GET
-    @Path("conto/{tavolo}")
-    public void richiestaConto(@PathParam("tavolo") String tavolo) {
-        os.removeFromOrdiniAttivi(tavolo);
+    @Path("conto/{tavolo}/{metodo}")
+    public void richiestaConto(@PathParam("tavolo") String tavolo, @PathParam("metodo") String metodo) {
+        String json = "{"
+                + "tavolo:'"+tavolo+"',"
+                + "metodo:'"+metodo+"'}";
+        os.removeFromOrdiniAttivi(json);
         eventConto.fire(tavolo);
     }
 }
