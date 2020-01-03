@@ -35,7 +35,7 @@ public class AreaRiservataTitolareServlet extends HttpServlet {
         Integer authType = (Integer) request.getSession()
                 .getAttribute("authType");
         if(authType == null) {
-            request.setAttribute("authentication-type", AuthenticationManager.TITOLARE);
+            request.setAttribute("authType", AuthenticationManager.TITOLARE);
             request.getRequestDispatcher("login.jsp")
                     .forward(request, response);
         }
