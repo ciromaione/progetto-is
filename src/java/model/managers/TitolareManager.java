@@ -108,15 +108,17 @@ public class TitolareManager {
         }
     }
     
-    public List<PiattoXQuantita> popolaritaPiattiMensile(int mese) {
+    public List<PiattoXQuantita> popolaritaPiattiMensile(int mese, int anno) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
-                    + "SELECT p.nome, p.categoria, p.prezzo_cent, SUM(op.quantita), p.id "
-                    + "FROM piatto p, ordine o, ordineXpiatto op "
-                    + "WHERE MONTH(o.data) = ? AND p.id = op.id_piatto AND o.id = op.id_ordine "
+                    + "SELECT p.nome, p.categoria, p.prezzo_cent, SUM(op.quantita) AS quantita, p.id "
+                    + "FROM ordine o "
+                    + "RIGHT JOIN ordineXpiatto op ON o.id = op.id_ordine "
+                    + "RIGHT JOIN piatto p ON (op.id_piatto = p.id AND MONTH(o.data) = ? AND YEAR(o.data) = ?)"
                     + "GROUP BY p.id, p.nome, p.categoria, p.prezzo_cent "
                     + "ORDER BY quantita DESC");
             ps.setInt(1, mese);
+            ps.setInt(2, anno);
             ResultSet rs = ps.executeQuery();
             List<PiattoXQuantita> results = new ArrayList<>();
             while(rs.next()) {
@@ -125,8 +127,11 @@ public class TitolareManager {
                 p.setCategoria(rs.getString(2));
                 p.setPrezzoCent(rs.getInt(3));
                 p.setId(rs.getInt(5));
-                results.add(new PiattoXQuantita(p, rs.getInt(4)));
+                Integer quantita = rs.getInt(4);
+                if(quantita == null) quantita = 0;
+                results.add(new PiattoXQuantita(p, quantita));
             }
+            
             return results;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
