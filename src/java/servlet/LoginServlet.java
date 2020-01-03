@@ -19,7 +19,7 @@ import model.managers.AuthenticationManager;
  *
  * @author ciro
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/performlogin"})
 public class LoginServlet extends HttpServlet {
     
     @Inject
