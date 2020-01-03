@@ -29,9 +29,9 @@ public class ClientAzioniService {
     
     @Inject
     private OrdiniSingleton os;
-    @Inject @Conferma
+    @Inject @ConfermaEvent
     private Event<String> eventConferma;
-    @Inject @Conto
+    @Inject @ContoEvent
     private Event<String> eventConto;
 
     @POST

@@ -31,7 +31,7 @@ public class OrdineBroadcastService extends AbstractBroadcastService {
     }
 
     @Override
-    public void sender(@Observes @Conferma String data) {
+    public void sender(@Observes @ConfermaEvent String data) {
         this.broadcaster.broadcast(this.sse.newEvent(data));
     }
     
