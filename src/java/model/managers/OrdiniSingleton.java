@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
+import model.entities.Conto;
 import model.entities.OrdineStaff;
 
 /**
@@ -24,10 +25,12 @@ public class OrdiniSingleton {
 
     private HashMap<String, OrdineStaff> ordiniAttivi;
     private List<OrdineStaff> ordiniDaCompletare;
+    private HashMap<String, Conto> richiesteConto;
 
     public OrdiniSingleton() {
         ordiniAttivi = new HashMap<>();
         ordiniDaCompletare = new LinkedList<>();
+        richiesteConto = new HashMap<>();
     }
     
     public Collection<OrdineStaff> getOrdiniAttivi() {
@@ -37,6 +40,11 @@ public class OrdiniSingleton {
     public Collection<OrdineStaff> getOrdiniDaCompletare() {
         return ordiniDaCompletare;
     }
+    
+    public Collection<Conto> getRichiesteConto() {
+        return richiesteConto.values();
+    }
+    
     
     public void addOrdine(OrdineStaff ordine) {
         if(ordiniAttivi.containsKey(ordine.getTavolo())) {
@@ -57,5 +65,9 @@ public class OrdiniSingleton {
     
     public OrdineStaff removeFromOrdiniAttivi(String tavolo) {
         return ordiniAttivi.remove(tavolo);
+    }
+    
+    public void removeFromRichiesteConto(String tavolo) {
+        richiesteConto.remove(tavolo);
     }
 }
