@@ -40,7 +40,14 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("password");
         
         switch(Integer.parseInt(authType)) {
-            case 1: break;
+            case AuthenticationManager.TITOLARE:
+                if(am.loginTitolare(pass)) {
+                    request.getSession()
+                            .setAttribute("authType", authType);
+                    request.getRequestDispatcher("areariservata")
+                            .forward(request, response);
+                }
+                break;
             case 2: break;
         }
     }
