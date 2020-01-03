@@ -31,11 +31,13 @@ public class LoginFormServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String authType = request.getParameter("at");
+        String target = request.getParameter("target");
         if(authType == null)
             response.sendRedirect("");
         else {
             request.setAttribute("authType", authType);
-            request.getRequestDispatcher("login")
+            request.setAttribute("target", target);
+            request.getRequestDispatcher("login.jsp")
                     .forward(request, response);
         }
         
