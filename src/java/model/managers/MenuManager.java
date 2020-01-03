@@ -22,7 +22,7 @@ import model.entities.Piatto;
  * @author ciro
  */
 @Stateless
-public class ClienteManager {
+public class MenuManager {
 
     @Inject
     Connection conn;

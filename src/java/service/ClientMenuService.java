@@ -13,7 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.entities.Piatto;
-import model.managers.ClienteManager;
+import model.managers.MenuManager;
 
 /**
  *
@@ -24,19 +24,19 @@ import model.managers.ClienteManager;
 public class ClientMenuService {
     
     @Inject
-    private ClienteManager cm;
+    private MenuManager mm;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Piatto> getMenu() {
-        return cm.getMenu();
+        return mm.getMenu();
     }
     
     @GET
     @Path("categorie")
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getCategorie() {
-        return cm.getCategorie();
+        return mm.getCategorie();
     }
     
 }
