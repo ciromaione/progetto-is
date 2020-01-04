@@ -32,10 +32,10 @@
         </header>			
         <div class="mainMenuContainer">
             <div class="buttonContanitor">	
-                <button class="buttonSize" onclick="location.href = 'ricaviGiornalieri.jsp'" >Ricavi Giornalieri</button>
-                <button class="buttonSize" onclick="location.href = 'aggiungiPortata.jsp'">Aggiungi Portata</button>
-                <button class="buttonSize" onclick="location.href = 'rimuoviPortata.jsp'">Rimuovi Portata</button>
-                <button class="buttonSize" onclick="location.href = 'popolaritaPiatti.jsp'">Popolaritá Piatti</button>
+                <button class="buttonSize" onclick="location.href = 'ricavigiornalieri'" >Ricavi Giornalieri</button>
+                <button class="buttonSize" onclick="location.href = 'aggiungiportata'">Aggiungi Portata</button>
+                <button class="buttonSize" onclick="location.href = 'rimuoviportata'">Rimuovi Portata</button>
+                <button class="buttonSize" onclick="location.href = 'popolaritapiatti'">Popolaritá Piatti</button>
             </div>
         </div>
     </body>
