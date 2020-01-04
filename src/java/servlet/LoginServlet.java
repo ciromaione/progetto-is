@@ -60,14 +60,14 @@ public class LoginServlet extends HttpServlet {
         
         if(!authFlag) {
             request.setAttribute("errMSG", "Password errata!");
-            request.setAttribute(target, target);
+            request.setAttribute("target", target);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         if(target == null)
             response.sendRedirect("");
         else
-            response.sendRedirect(target);
+            response.sendRedirect("areariservata");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

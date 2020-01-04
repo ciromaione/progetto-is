@@ -16,28 +16,29 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!------ Include the above in your HEAD tag ---------->
     <body>
-        <%
-            String target = (String) request.getAttribute("target");
-            String loginMSG = "";
-            if(target != null)
-                if(target.equals("areariservata"))
-                    loginMSG = "Titolare";
-                else loginMSG = "Staff";
-        %>
+        
         <div id="login">
-            <h3 class="text-center text-white pt-5">Login<%=" "+loginMSG%></h3>
-            <%
-                String errMSG = (String) request.getAttribute("errMSG");
-                if(errMSG != null) {
-            %>
-            <div><%=errMSG%></div>
-            <%}%>
+            
             <div class="container">
                 <div id="login-row" class="row justify-content-center align-items-center">
                     <div id="login-column" class="col-md-6">
                         <div id="login-box" class="col-md-12">
-                            <form id="login-form" class="form" action="performlogin" method="post">
-                                <h3 class="text-center text-info">Login</h3>
+                            <form id="login-form" class="form" action="performlogin" method="post" style="margin-top: 50%">
+                                <%
+                                    String target = (String) request.getAttribute("target");
+                                    String loginMSG = " ";
+                                    if(target != null)
+                                        if(target.equals("areariservata"))
+                                            loginMSG += "Titolare";
+                                        else loginMSG += "Staff";
+                                %>
+                                <h3 class="text-center text-info">Login<%=loginMSG%></h3>
+                                <%
+                                    String errMSG = (String) request.getAttribute("errMSG");
+                                    if(errMSG != null) {
+                                %>
+                                <div><%=errMSG%></div>
+                                <%}%>
                                 <div class="form-group">
                                     <label for="password" class="text-info">Password:</label><br>
                                     <input type="password" name="password" id="password" class="form-control">

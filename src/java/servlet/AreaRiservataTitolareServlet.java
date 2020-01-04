@@ -40,13 +40,14 @@ public class AreaRiservataTitolareServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.STAFF) {
+            request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
             request.setAttribute("target", "areariservata");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE)
-            request.getRequestDispatcher("areariservata.html")
+            request.getRequestDispatcher("areariservata.jsp")
                     .forward(request, response);
         
     }
