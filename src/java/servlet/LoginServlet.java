@@ -35,20 +35,39 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String authType = request.getParameter("at");
+        String atrequest = request.getParameter("auth-type-request");
+        String target = request.getParameter("target");
         String pass = request.getParameter("password");
         
-        switch(Integer.parseInt(authType)) {
+        boolean authFlag = false;
+        
+        switch(Integer.parseInt(atrequest)) {
             case AuthenticationManager.TITOLARE:
                 if(am.loginTitolare(pass)) {
                     request.getSession()
-                            .setAttribute("authType", authType);
-                    request.getRequestDispatcher("areariservata")
-                            .forward(request, response);
+                            .setAttribute("authAs", AuthenticationManager.TITOLARE);
+                    authFlag = true;
                 }
                 break;
-            case 2: break;
+            case AuthenticationManager.STAFF:
+                if(am.loginStaff(pass)) {
+                    request.getSession()
+                            .setAttribute("authAs", AuthenticationManager.STAFF);
+                    authFlag = true;
+                }
+                break;
         }
+        
+        if(!authFlag) {
+            request.setAttribute("errMSG", "Password errata!");
+            request.setAttribute(target, target);
+            request.getRequestDispatcher("login")
+                    .forward(request, response);
+        }
+        if(target == null)
+            response.sendRedirect("");
+        else
+            response.sendRedirect(target);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

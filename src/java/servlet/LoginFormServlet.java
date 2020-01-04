@@ -30,16 +30,14 @@ public class LoginFormServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String authType = request.getParameter("at");
-        String target = request.getParameter("target");
-        if(authType == null)
+        Integer authenticatedAs = (Integer) request.getSession()
+                .getAttribute("authAs");
+        if(authenticatedAs != null)
             response.sendRedirect("");
-        else {
-            request.setAttribute("authType", authType);
-            request.setAttribute("target", target);
+        else 
             request.getRequestDispatcher("login.jsp")
                     .forward(request, response);
-        }
+        
         
     }
 

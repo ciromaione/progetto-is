@@ -32,14 +32,20 @@ public class AreaRiservataTitolareServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Integer authType = (Integer) request.getSession()
-                .getAttribute("authType");
-        if(authType == null) {
-            request.setAttribute("authType", AuthenticationManager.TITOLARE);
-            request.getRequestDispatcher("login.jsp")
+        Integer authAs = (Integer) request.getSession()
+                .getAttribute("authAs");
+        if(authAs == null) {
+            request.setAttribute("target", "areariservata");
+            request.getRequestDispatcher("login")
                     .forward(request, response);
         }
-        else
+        else if(authAs == AuthenticationManager.STAFF) {
+            request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
+            request.setAttribute("target", "areariservata");
+            request.getRequestDispatcher("login")
+                    .forward(request, response);
+        }
+        else if(authAs == AuthenticationManager.TITOLARE)
             request.getRequestDispatcher("areariservata.jsp")
                     .forward(request, response);
         
