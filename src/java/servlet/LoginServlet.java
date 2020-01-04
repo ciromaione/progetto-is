@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
         if(target == null)
             response.sendRedirect("");
         else
-            response.sendRedirect("areariservata");
+            response.sendRedirect(target);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

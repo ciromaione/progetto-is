@@ -57,7 +57,6 @@ public class RicaviGiornalieriServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            
             /*
             *   DA IMPLEMENTARE
             */
