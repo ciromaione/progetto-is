@@ -37,19 +37,16 @@ public class VisualizzaOrdiniServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Integer authType = (Integer) request.getSession()
-                .getAttribute("authType");
-        if(authType == null) {
-            request.setAttribute("authType", AuthenticationManager.STAFF);
+        Integer authAs = (Integer) request.getSession()
+                .getAttribute("authAs");
+        if(authAs == null) {
             request.setAttribute("target", "ordini");
-            request.getRequestDispatcher("login.jsp")
+            request.getRequestDispatcher("login")
                     .forward(request, response);
         }
-        else {
-            request.setAttribute("ordini", os.getOrdiniDaCompletare());
-            request.getRequestDispatcher("visualizzaOrdini.jsp")
+        else
+            request.getRequestDispatcher("ordini.jsp")
                     .forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

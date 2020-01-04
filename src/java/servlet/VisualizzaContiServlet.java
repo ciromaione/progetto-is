@@ -37,19 +37,16 @@ public class VisualizzaContiServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Integer authType = (Integer) request.getSession()
-                .getAttribute("authType");
-        if(authType == null) {
-            request.setAttribute("authType", AuthenticationManager.STAFF);
+        Integer authAs = (Integer) request.getSession()
+                .getAttribute("authAs");
+        if(authAs == null) {
             request.setAttribute("target", "richiesteconto");
-            request.getRequestDispatcher("login.jsp")
+            request.getRequestDispatcher("login")
                     .forward(request, response);
         }
-        else {
-            request.setAttribute("conti", os.getRichiesteConto());
-            request.getRequestDispatcher("visualizzaConti.jsp")
+        else
+            request.getRequestDispatcher("conti.jsp")
                     .forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

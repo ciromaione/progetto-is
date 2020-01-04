@@ -46,7 +46,7 @@ public class AreaRiservataTitolareServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE)
-            request.getRequestDispatcher("areariservata.jsp")
+            request.getRequestDispatcher("areariservata.html")
                     .forward(request, response);
         
     }
