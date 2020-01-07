@@ -142,11 +142,10 @@ public class TitolareManager {
     public List<PiattoXQuantita> guadagnoGiornalieroPiatti(Date data) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
-                    + "SELECT p.id, p.nome, p.categoria, SUM(op.quantita), SUM(p.prezzo_cent) AS ricavo "
+                    + "SELECT p.id, p.nome, p.categoria, SUM(op.quantita), p.prezzo_cent "
                     + "FROM piatto p, ordineXpiatto op, ordine o "
                     + "WHERE p.id = op.id_piatto AND op.id_ordine = o.id AND o.data = ? "
-                    + "GROUP BY p.id "
-                    + "ORDER BY ricavo DESC");
+                    + "GROUP BY p.id");
             ps.setDate(1, data);
             ResultSet rs = ps.executeQuery();
             List<PiattoXQuantita> results = new ArrayList<>();
