@@ -4,6 +4,7 @@
     Created on : 4-gen-2020, 18.19.04
     Author     : ciro
 --%>
+<%@page import="model.entities.PiattoStaff"%>
 <%@page import="model.entities.OrdineStaff"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,24 +38,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                            for(PiattoStaff piatto:ordine.getPiatti()) {
+                                String aggiunte = "";
+                                String rimozioni = "";
+                                for(String a:piatto.getAggiunte()) aggiunte += a+", ";
+                                for(String r:piatto.getRimozioni()) rimozioni += r+", ";
+                                aggiunte = aggiunte.substring(0, aggiunte.length()-1);
+                                rimozioni = rimozioni.substring(0, rimozioni.length()-1);
+                            %>
                             <tr>
-                                <th scope="row">Arancino</th>
-                                <td>2</td>
-                                <td></td>
-                                <td></td>
+                                <th scope="row"><%=piatto.getNomePiatto()%></th>
+                                <td><%=piatto.getQuantita()%></td>
+                                <td><%=aggiunte%></td>
+                                <td><%=rimozioni%></td>
                             </tr>
-                            <tr>
-                                <th scope="row">Big Jin</th>
-                                <td>1</td>
-                                <td>patatine, insalata, mayo</td>
-                                <td>cipolle, ketchup</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Chesee cake</th>
-                                <td>6</td>
-                                <td>panna</td>
-                                <td>fragole</td>
-                            </tr>
+                            <%}%>
+                            
                         </tbody>
                     </table>	
                     <button type="button" class="btn btn-success">Completato</button>
@@ -67,6 +67,14 @@
         
         
         <%@include file="imports.html" %>
+        
+        <script>
+            $(document).ready(function () {
+                
+                
+                
+            });
+        </script>
         
     </body>
   
