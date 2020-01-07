@@ -139,22 +139,26 @@ public class TitolareManager {
         
     }
     
-    public List<Ordine> guadagnoGiornaliero(Date data) {
+    public List<PiattoXQuantita> guadagnoGiornalieroPiatti(Date data) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
-                    + "SELECT o.id, o.data, o.totale_cent "
-                    + "FROM ordine o "
-                    + "WHERE o.data = ? "
-                    + "ORDER BY o.id");
+                    + "SELECT p.id, p.nome, p.categoria, SUM(op.quantita), SUM(p.prezzo_cent) AS ricavo "
+                    + "FROM piatto p, ordineXpiatto op, ordine o "
+                    + "WHERE p.id = op.id_piatto AND op.id_ordine = o.id AND o.data = ? "
+                    + "GROUP BY p.id "
+                    + "ORDER BY ricavo DESC");
             ps.setDate(1, data);
             ResultSet rs = ps.executeQuery();
-            List<Ordine> results = new ArrayList<>();
+            List<PiattoXQuantita> results = new ArrayList<>();
             while(rs.next()) {
-                Ordine o = new Ordine();
-                o.setId(rs.getInt(1));
-                o.setData(rs.getDate(2));
-                o.setTotaleCent(rs.getInt(3));
-                results.add(o);
+                Piatto p = new Piatto();
+                p.setId(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setCategoria(rs.getString(3));
+                int quantita = rs.getInt(4);
+                p.setPrezzoCent(rs.getInt(5));
+                
+                results.add(new PiattoXQuantita(p, quantita));
             }
             return results;
         } catch (SQLException ex) {
@@ -162,6 +166,22 @@ public class TitolareManager {
         }
     }
     
+    public int guadagnoGiornaliero(Date data) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(""
+                    + "SELECT SUM(o.totale_cent) "
+                    + "FROM ordine o "
+                    + "WHERE o.data = ?");
+            ps.setDate(1, data);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+                return rs.getInt(1);
+            else
+                return 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
     
     
     private void saveRelationship(int id, Collection<Ingrediente> ing, String table) throws SQLException {
