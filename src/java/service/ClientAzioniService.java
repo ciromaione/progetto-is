@@ -39,8 +39,8 @@ public class ClientAzioniService {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response confermaOrdine(OrdineStaff ordine) {
         try {
-            os.addOrdine(ordine);
-            String ordineJSON = new Gson().toJson(ordine);
+            OrdineStaff ord = os.addOrdine(ordine);
+            String ordineJSON = new Gson().toJson(ord);
             eventConferma.fire(ordineJSON);
         } catch (Throwable t) {
             t.printStackTrace();

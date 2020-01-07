@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OrdineStaff implements Serializable {
    private static final long serialVersionUID = 1L;
     
+   private int id;
    private String tavolo;
    private List<PiattoStaff> piatti;
    private Integer totaleCent;
@@ -27,6 +28,14 @@ public class OrdineStaff implements Serializable {
         this.totaleCent = TotaleCent;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getTavolo() {
         return tavolo;
     }

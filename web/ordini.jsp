@@ -56,8 +56,11 @@
                             <%}%>
                             
                         </tbody>
-                    </table>	
-                    <button type="button" class="btn btn-success">Completato</button>
+                    </table>
+                    <form action="rimuoviordine" method="GET">
+                        <input type="hidden" name="id" value="<%=ordine.getId()%>">
+                        <input type="submit" class="btn btn-success" value="Completato">
+                    </form>
                 </div>
                     
                 <%}%>
@@ -112,7 +115,10 @@
                     nuovoOrdine += `
                         </tbody>
                         </table>	
-                        <button type="button" class="btn btn-success">Completato</button>
+                        <form action="rimuoviordine" method="GET">
+                            <input type="hidden" name="id" value="${ordine.id}">
+                            <input type="submit" class="btn btn-success" value="Completato">
+                        </form>
                         </div>`;
                     
                     $("#contenitore-ordini").prepend(nuovoOrdine);

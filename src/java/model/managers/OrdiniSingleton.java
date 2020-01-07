@@ -24,13 +24,15 @@ import model.entities.OrdineStaff;
 public class OrdiniSingleton {
 
     private HashMap<String, OrdineStaff> ordiniAttivi;
-    private List<OrdineStaff> ordiniDaCompletare;
+    private HashMap<Integer, OrdineStaff> ordiniDaCompletare;
     private HashMap<String, Conto> richiesteConto;
+    private int lastId;
 
     public OrdiniSingleton() {
         ordiniAttivi = new HashMap<>();
-        ordiniDaCompletare = new LinkedList<>();
+        ordiniDaCompletare = new HashMap<>();
         richiesteConto = new HashMap<>();
+        lastId = -1;
     }
     
     public Collection<OrdineStaff> getOrdiniAttivi() {
@@ -38,7 +40,7 @@ public class OrdiniSingleton {
     }
     
     public Collection<OrdineStaff> getOrdiniDaCompletare() {
-        return ordiniDaCompletare;
+        return ordiniDaCompletare.values();
     }
     
     public Collection<Conto> getRichiesteConto() {
@@ -46,7 +48,7 @@ public class OrdiniSingleton {
     }
     
     
-    public void addOrdine(OrdineStaff ordine) {
+    public OrdineStaff addOrdine(OrdineStaff ordine) {
         if(ordiniAttivi.containsKey(ordine.getTavolo())) {
             ordiniAttivi.get(ordine.getTavolo())
                     .addPiatti(ordine.getPiatti());
@@ -56,11 +58,14 @@ public class OrdiniSingleton {
         else
             ordiniAttivi.put(ordine.getTavolo(), ordine);
         
-        ordiniDaCompletare.add(ordine);
+        int id = getId();
+        ordiniDaCompletare.put(id, ordine);
+        ordine.setId(id);
+        return ordine;
     }
     
-    public void removeFromOrdiniDaCompletare(int index) {
-        ordiniDaCompletare.remove(index);
+    public void removeFromOrdiniDaCompletare(int id) {
+        ordiniDaCompletare.remove(id);
     }
     
     public OrdineStaff removeFromOrdiniAttivi(String tavolo) {
@@ -69,5 +74,10 @@ public class OrdiniSingleton {
     
     public void removeFromRichiesteConto(String tavolo) {
         richiesteConto.remove(tavolo);
+    }
+    
+    private int getId() {
+        this.lastId++;
+        return this.lastId;
     }
 }
