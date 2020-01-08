@@ -12,6 +12,8 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+    
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
@@ -42,14 +44,12 @@
 
 <div style = "margin-left:34%; margin-right:34%">
 	<h2> Seleziona la data di cui vuoi visualizzare i ricavi</h2>
-        <form action="ricavigiornalieri" method="POST">
 	<div class="input-group">
 		<input class="date form-control" name="date" id="date" type="text" placeholder="M/d/y" title="format: M/d/y" aria-autocomplete="none" style="min-width: 7em;">
 			<a class="datepicker-button bootstrap3 input-group-addon btn default" role="button" aria-haspopup="true" tabindex="0" aria-labelledby="datepicker-bn-open-label-date">	
 			<span class="glyphicon glyphicon-calendar" title="Select date ..."></span>
 			</a>
 	</div>
-        </form>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#date').datepicker({
