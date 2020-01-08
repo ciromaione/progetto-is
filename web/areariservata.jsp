@@ -10,20 +10,7 @@
     
     <%@include file="head.html" %>
     
-    <body>
-        <header>
-            <!-- Main bar-->
-            <div class="menunavContainer" style="height:110px">
-                <!-- Space for the logo -->
-                <div class="logocontainer">
-                    <img style="width:120px; height:110px" alt="" src="Images/logoGnam.png">
-                </div>
-                <div class="menunav" style = "font-family: Royal">
-                    <button class="buttonMain">Logout</button>
-                    <button class="buttonMain">Cambia PW</button>
-                </div>
-            </div>
-        </header>			
+    <body>		
         <div class="mainMenuContainer">
             <div class="buttonContanitor">	
                 <button class="buttonSize" onclick="location.href = 'ricavigiiornalieri'" >Ricavi Giornalieri</button>
