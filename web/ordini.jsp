@@ -76,7 +76,9 @@
             $(document).ready(function () {
                 
                 let events = new EventSource("http://localhost:8080/MENU_MAXI_SERVER/rest/staff/ordini");
-                events.onmessage = (ordine) => {
+                events.onmessage = (mess) => {
+                    let ordine = mess.data;
+                    
                     let num = parseInt($("#numero-ordini").val(), 10);
                     $("#numero-ordini").text(num);
 

@@ -4,6 +4,8 @@
     Author     : ciro
 --%>
 
+<%@page import="model.entities.Conto"%>
+<%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,42 +16,62 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col"># Tavolo</th>
+                        <th scope="col">Tavolo</th>
                         <th scope="col">Totale Spesa</th>
                         <th scope="col">Metodo di Pagamento</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="contenitore-conti">
+                    <%
+                        Collection<Conto> conti = (Collection<Conto>) request.getAttribute("conti");
+                        for(Conto conto:conti) {
+                    %>
                     <tr>
-                        <th scope="row">Tavolo 1</th>
-                        <td>100euro</td>
-                        <td>Carta di credito</td>
-                        <td><button type="button" class="btn btn-success">Paga</button></td>
+                        <th scope="row"><%=conto.getTavolo()%></th>
+                        <td><%=conto.getTotale()%></td>
+                        <td><%=conto.getMetodo()%></td>
+                        <td>
+                            <form action="rimuoviconto" method="GET">
+                                <input type="hidden" name="tavolo" value="<%=conto.getTavolo()%>">
+                                <input type="submit" class="btn btn-primary" value="Stampa Conto">
+                            </form>
+                        </td>
                     </tr>
-                    <tr>
-                        <th scope="row">Tavolo 2</th>
-                        <td>75,50 euro</td>
-                        <td>Contanti</td>
-                        <td><button type="button" class="btn btn-success">Paga</button></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Tavolo 3</th>
-                        <td>25euro</td>
-                        <td>Contanti</td>
-                        <td><button type="button" class="btn btn-success">Paga</button></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Tavolo 4</th>
-                        <td>382euro</td>
-                        <td>Carta di Debito</td>
-                        <td><button type="button" class="btn btn-success">Paga</button></td>
-                    </tr>
+                    <%}%>
+                    
                 </tbody>
             </table>
         </div>
 
 
         <%@include file="imports.html" %>
+        
+        <script>
+            $(document).ready(function() {
+                
+                let events = new EventSource("http://localhost:8080/MENU_MAXI_SERVER/rest/staff/conti");
+                events.onmessage = (mess) => {
+                    let conto = mess.data;
+                    
+                    let nuovoConto = `
+                        <tr>
+                            <th scope="row">${conto.tavolo}</th>
+                            <td>${conto.totale}</td>
+                            <td>${conto.metodo}</td>
+                            <td>
+                                <form action="rimuoviconto" method="GET">
+                                    <input type="hidden" name="tavolo" value="${conto.tavolo}">
+                                    <input type="submit" class="btn btn-primary" value="Stampa Conto">
+                                </form>
+                            </td>
+                        </tr>`;
+                    
+                    $("#contenitore-conti").prepend(nuovoConto);
+                
+                }
+                
+            });
+        </script>
     </body>
 </html>
