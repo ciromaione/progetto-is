@@ -7,15 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menú Maxi</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
-    </head>
+    
+    <%@include file="head.html" %>
+    
     <body>
         <header>
             <!-- Main bar-->
@@ -32,11 +26,13 @@
         </header>			
         <div class="mainMenuContainer">
             <div class="buttonContanitor">	
-                <button class="buttonSize" onclick="location.href = 'ricaviodierni'" >Ricavi Giornalieri</button>
+                <button class="buttonSize" onclick="location.href = 'ricavigiiornalieri'" >Ricavi Giornalieri</button>
                 <button class="buttonSize" onclick="location.href = 'aggiungiportata'">Aggiungi Portata</button>
                 <button class="buttonSize" onclick="location.href = 'rimuoviportata'">Rimuovi Portata</button>
-                <button class="buttonSize" onclick="location.href = 'popolaritaodierne'">Popolaritá Piatti</button>
+                <button class="buttonSize" onclick="location.href = 'popolaritaportate'">Popolaritá Piatti</button>
             </div>
         </div>
+        
+        <%@include file="imports.html" %>
     </body>
 </html>

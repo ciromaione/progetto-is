@@ -10,8 +10,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,7 +67,7 @@ public class RicaviGiornalieriServlet extends HttpServlet {
                 try {  
                      date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
                 } catch (ParseException ex) {
-                    Logger.getLogger(RicaviGiornalieriServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new RuntimeException(ex);
                 }
             }
             
