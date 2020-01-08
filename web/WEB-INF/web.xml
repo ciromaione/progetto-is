@@ -19,10 +19,6 @@
         <servlet-name>RicaviOrdierni</servlet-name>
         <servlet-class>servlet.RicaviOrdierniServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>PopolaritaOdierne</servlet-name>
-        <servlet-class>servlet.PopolaritaOdierneServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>RicaviGiornalieri</servlet-name>
         <url-pattern>/RicaviGiornalieri</url-pattern>
@@ -38,10 +34,6 @@
     <servlet-mapping>
         <servlet-name>RicaviOrdierni</servlet-name>
         <url-pattern>/RicaviOrdierni</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PopolaritaOdierne</servlet-name>
-        <url-pattern>/PopolaritaOdierne</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -38,10 +38,7 @@ public class PopolaritaPortateServlet extends HttpServlet {
             throws ServletException, IOException {
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String mtemp=(String) request.getAttribute("mese");
-        int mese=Integer.parseInt(mtemp);
-        String atemp=(String) request.getAttribute("anno");
-        int anno=Integer.parseInt(atemp);
+        
                 
         if(authAs == null) {
             request.setAttribute("target", "popolaritaportate");
@@ -56,7 +53,7 @@ public class PopolaritaPortateServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(mese, anno);
+            List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(0, 0);
             request.setAttribute("piatti", piatti);
             request.getRequestDispatcher("popolaritaPiatti.jsp")
                     .forward(request, response);

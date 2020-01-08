@@ -35,7 +35,7 @@
                 <button class="buttonSize" onclick="location.href = 'ricaviodierni'" >Ricavi Giornalieri</button>
                 <button class="buttonSize" onclick="location.href = 'aggiungiportata'">Aggiungi Portata</button>
                 <button class="buttonSize" onclick="location.href = 'rimuoviportata'">Rimuovi Portata</button>
-                <button class="buttonSize" onclick="location.href = 'popolaritaodierne'">Popolaritá Piatti</button>
+                <button class="buttonSize" onclick="location.href = 'popolaritapiatti'">Popolaritá Piatti</button>
             </div>
         </div>
     </body>
