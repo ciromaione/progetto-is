@@ -17,7 +17,6 @@
     <div class="container">
 
 
-        <div class="container">
 
             <h2 style="text-align: center">Rimozione Portate</h2>
 
