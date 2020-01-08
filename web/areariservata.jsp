@@ -32,7 +32,7 @@
         </header>			
         <div class="mainMenuContainer">
             <div class="buttonContanitor">	
-                <button class="buttonSize" onclick="location.href = 'ricavigiornalieri'" >Ricavi Giornalieri</button>
+                <button class="buttonSize" onclick="location.href = 'ricaviodierni'" >Ricavi Giornalieri</button>
                 <button class="buttonSize" onclick="location.href = 'aggiungiportata'">Aggiungi Portata</button>
                 <button class="buttonSize" onclick="location.href = 'rimuoviportata'">Rimuovi Portata</button>
                 <button class="buttonSize" onclick="location.href = 'popolaritapiatti'">Popolaritá Piatti</button>

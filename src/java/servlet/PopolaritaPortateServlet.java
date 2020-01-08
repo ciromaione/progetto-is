@@ -41,7 +41,7 @@ public class PopolaritaPortateServlet extends HttpServlet {
         
                 
         if(authAs == null) {
-            request.setAttribute("target", "ricavigiornalieri");
+            request.setAttribute("target", "popolaritaportate");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
