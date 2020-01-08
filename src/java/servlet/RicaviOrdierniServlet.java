@@ -49,14 +49,14 @@ public class RicaviOrdierniServlet extends HttpServlet {
         Date date=(Date) new java.util.Date();
         
         if(authAs == null) {
-            request.setAttribute("target", "ricaviodierni");
+            request.setAttribute("target", "ricavigiornalieri");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.STAFF) {
             request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
-            request.setAttribute("target", "ricaviodierni");
+            request.setAttribute("target", "ricavigiornalieri");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
