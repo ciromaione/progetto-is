@@ -15,15 +15,13 @@
 
         <% List<TitolareManager.PiattoXQuantita> piatti = (List<TitolareManager.PiattoXQuantita>) request.getAttribute("piatti"); %> 
 
-        <div style = "margin-left:34%; margin-right:34%">
+        <div class="container" style="padding: 40px">
             <h2> Seleziona il mese per cui visualizzare i piatti piú popolari</h2>	
             <form action="popolaritaportate" method="GET">
-
-                <div style="margin-top:7%">
-                    <div class="dropdown" style="margin-left:33%">
-                        Mese:
-
-                        <select id="month" name='mese'>
+                <div class="form-group row">
+                    <label for="month" class="col-1 col-form-label" style="text-align: right">Mese</label>
+                    <div class="col-4">
+                        <select id="month" name='mese' class="custom-select">
                             <option value='01'>Gennaio</option>
                             <option value='02'>Febbraio</option>
                             <option value='03'>Marzo</option>
@@ -37,44 +35,47 @@
                             <option value='11'>Novembre</option>
                             <option value='12'>Dicembre</option>
                         </select>
-
-
-                        Anno:
-                        <select id="year" name='anno'>
+                    </div>
+                    <label for="year" class="col-1 col-form-label" style="text-align: right">Anno</label>
+                    <div class="col-4">
+                        <select id="year" name='anno' class="custom-select">
                             <option value='2019'>2019</option>
                             <option value='2020'>2020</option>
                         </select>
-                        <input type='submit' value='Conferma'>
+                    </div>
 
+                    <div class="col-2">
+                        <input type="submit" value="Conferma" class="btn btn-primary">
                     </div>
                 </div>
-            </form>
-        </div>
-        <div>
-            <div style="border: groove; width: 32%; margin-left: 34%; margin-top: 2%;">
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome Piatto</th>
-                            <th scope="col">Quantitá</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% int i = 0;
-                          for (TitolareManager.PiattoXQuantita piatto : piatti) {%>
-                        <tr>
-                            <th scope="row"> <%=i++%></th>
-                            <td><%=piatto.getPiatto().getNome()%></td>
-                            <td><%=piatto.getQuantita()%></td>
-                        </tr>
-                        <% }%>
-                    </tbody>
-                </table>
+            </form>
+
+            <div>
+                <div style="border: groove;margin-top: 20px;width: 60%;margin-left: auto;margin-right: auto">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome Piatto</th>
+                                <th scope="col">Quantitá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% int i = 1;
+                                for (TitolareManager.PiattoXQuantita piatto : piatti) {%>
+                            <tr>
+                                <th scope="row"> <%=i++%></th>
+                                <td><%=piatto.getPiatto().getNome()%></td>
+                                <td><%=piatto.getQuantita()%></td>
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        
         <%@include file="imports.html" %>
 
     </body>  
