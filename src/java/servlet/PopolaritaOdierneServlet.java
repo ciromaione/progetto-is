@@ -6,6 +6,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -20,11 +22,12 @@ import model.managers.TitolareManager;
  *
  * @author Alice Vidoni
  */
-@WebServlet(name = "PopolaritaPortateServlet", urlPatterns = {"/popolaritaportate"})
-public class PopolaritaPortateServlet extends HttpServlet {
-
+@WebServlet(name = "PopolaritaOdierneServlet", urlPatterns = {"/popolaritaodierne"})
+public class PopolaritaOdierneServlet extends HttpServlet {
+    
     @Inject
     TitolareManager tm;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,29 +41,28 @@ public class PopolaritaPortateServlet extends HttpServlet {
             throws ServletException, IOException {
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String mtemp=(String) request.getAttribute("mese");
-        int mese=Integer.parseInt(mtemp);
-        String atemp=(String) request.getAttribute("anno");
-        int anno=Integer.parseInt(atemp);
-                
+        GregorianCalendar date=new GregorianCalendar();
+        int mese=date.get(Calendar.MONTH)+1;
+        int anno=date.get(Calendar.YEAR);
+        
         if(authAs == null) {
-            request.setAttribute("target", "popolaritaportate");
+            request.setAttribute("target", "ricavigiornalieri");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.STAFF) {
             request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
-            request.setAttribute("target", "popolaritaportate");
+            request.setAttribute("target", "ricavigiornalieri");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(mese, anno);
-            request.setAttribute("piatti", piatti);
+            List <TitolareManager.PiattoXQuantita> popolarita=tm.popolaritaPiattiMensile(mese,anno);
+            request.setAttribute("popolarita", popolarita);
             request.getRequestDispatcher("popolaritaPiatti.jsp")
                     .forward(request, response);
-        
+        }
         }
     }
 
