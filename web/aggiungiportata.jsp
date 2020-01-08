@@ -118,6 +118,48 @@
             </form>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="aggiungi-ingrediente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Aggiungi Ingrediente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="nome ing" class="col-2 col-form-label">Nome</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" name="nome-ing" id="nome-ing">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cat-ing" class="col-2 col-form-label">Categoria</label>
+                            <div class="col-10">
+                                <select class="form-control" id="cat-ing">
+                                    <option value="categoria1">Categoria 1</option>
+                                    <option value="categoria2">Categoria 2</option>
+                                    <option value="categoria3">Categoria 3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sovrapprezzo" class="col-3 col-form-label">Sovrapprezzo</label>
+                            <div class="col-9">
+                                <input type="text" class="form-control" name="sovrapprezzo" id="sovrapprezzo">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Aggiungi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         
         <%@include file="imports.html" %>
         
