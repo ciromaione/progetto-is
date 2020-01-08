@@ -77,12 +77,5 @@
             </div>
         </div>
         <%@include file="imports.html" %>
-
-        <script>
-            $(document).ready(function () {
-                $('#date').datepicker({
-                });
-            });
-        </script>
     </body>
 </html>
