@@ -16,7 +16,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import model.entities.Ingrediente;
-import model.entities.Ordine;
 import model.entities.Piatto;
 
 /**
@@ -177,6 +176,32 @@ public class TitolareManager {
                 return rs.getInt(1);
             else
                 return 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    public List<Piatto> getPiattiRimozione() {
+        try {
+            PreparedStatement ps = conn.prepareStatement(""
+                    + "SELECT id, nome, categoria, prezzo_cent "
+                    + "FROM piatto "
+                    + "ORDER BY nome");
+            
+            ResultSet rs = ps.executeQuery();
+            
+            List<Piatto> results = new ArrayList<>();
+            while(rs.next()) {
+                Piatto piatto = new Piatto();
+                piatto.setId(rs.getInt(1));
+                piatto.setNome(rs.getString(2));
+                piatto.setCategoria(rs.getString(3));
+                piatto.setPrezzoCent(rs.getInt(4));
+                piatto.setFoto(rs.getString(5));
+                results.add(piatto);
+            }
+            return results;
+            
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
