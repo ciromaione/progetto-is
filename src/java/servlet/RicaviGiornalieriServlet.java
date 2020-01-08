@@ -6,21 +6,18 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Collection;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entities.Ordine;
 import model.managers.AuthenticationManager;
 import model.managers.TitolareManager;
-import model.managers.TitolareManager.PiattoXQuantita;
 
 /**
  *
@@ -46,13 +43,6 @@ public class RicaviGiornalieriServlet extends HttpServlet {
         
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String data=request.getParameter("date");
-        Date date1 = null;
-        try {  
-             date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
-        } catch (ParseException ex) {
-            Logger.getLogger(RicaviGiornalieriServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         if(authAs == null) {
             request.setAttribute("target", "ricavigiornalieri");
@@ -67,12 +57,9 @@ public class RicaviGiornalieriServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            List <PiattoXQuantita> ricavi=tm.guadagnoGiornalieroPiatti(date1);
-            int guadagno_totale=tm.guadagnoGiornaliero(date1);
-            request.setAttribute("ricavi", ricavi);
-            request.setAttribute("totale", guadagno_totale);
-            request.getRequestDispatcher("ricaviGiornalieri.jsp")
-                    .forward(request, response);
+            /*
+            *   DA IMPLEMENTARE
+            */
         }
        
     }

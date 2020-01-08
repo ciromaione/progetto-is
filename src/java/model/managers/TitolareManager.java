@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import model.entities.Ingrediente;
+import model.entities.Ordine;
 import model.entities.Piatto;
 
 /**
@@ -164,7 +165,7 @@ public class TitolareManager {
         }
     }
     
-     public int guadagnoGiornaliero(Date data) {
+    public int guadagnoGiornaliero(Date data) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "SELECT SUM(o.totale_cent) "
@@ -180,7 +181,6 @@ public class TitolareManager {
             throw new RuntimeException(ex);
         }
     }
-    
     
     
     private void saveRelationship(int id, Collection<Ingrediente> ing, String table) throws SQLException {
