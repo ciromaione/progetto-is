@@ -59,7 +59,8 @@ public class AggiungiPortateServlet extends HttpServlet {
             List<Ingrediente> ingredienti=mm.getIngredienti();
             request.setAttribute("categorie", categorie);
             request.setAttribute("ingredienti", ingredienti);
-            response.sendRedirect("aggiungiportata");
+             request.getRequestDispatcher("aggiungiportate.jsp")
+                    .forward(request, response);
                     
         }
     }
