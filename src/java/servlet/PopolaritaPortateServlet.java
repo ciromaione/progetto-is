@@ -6,6 +6,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -38,10 +40,6 @@ public class PopolaritaPortateServlet extends HttpServlet {
             throws ServletException, IOException {
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String mtemp=(String) request.getAttribute("mese");
-        int mese=Integer.parseInt(mtemp);
-        String atemp=(String) request.getAttribute("anno");
-        int anno=Integer.parseInt(atemp);
                 
         if(authAs == null) {
             request.setAttribute("target", "popolaritaportate");
@@ -56,6 +54,22 @@ public class PopolaritaPortateServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
+            
+            String meseString = request.getParameter("mese");
+            String annoString = request.getParameter("anno");
+            
+            int mese, anno;
+            
+            if(meseString == null || annoString == null) {
+                GregorianCalendar date=new GregorianCalendar();
+                mese=date.get(Calendar.MONTH)+1;
+                anno=date.get(Calendar.YEAR);
+            }
+            else {
+                mese = Integer.parseInt(meseString);
+                anno = Integer.parseInt(annoString);
+            }
+            
             List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(mese, anno);
             request.setAttribute("piatti", piatti);
             request.getRequestDispatcher("popolaritaPiatti.jsp")

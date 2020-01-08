@@ -46,13 +46,6 @@ public class RicaviGiornalieriServlet extends HttpServlet {
         
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String data=request.getParameter("date");
-        Date date1 = null;
-        try {  
-             date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
-        } catch (ParseException ex) {
-            Logger.getLogger(RicaviGiornalieriServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         if(authAs == null) {
             request.setAttribute("target", "ricavigiornalieri");
@@ -67,8 +60,21 @@ public class RicaviGiornalieriServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            List <PiattoXQuantita> ricavi=tm.guadagnoGiornalieroPiatti(date1);
-            int guadagno_totale=tm.guadagnoGiornaliero(date1);
+            
+            String data = request.getParameter("date");
+            Date date1 = null;
+            if(data == null)
+                date1 = new Date(new java.util.Date().getTime());
+            else {
+                try {  
+                     date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
+                } catch (ParseException ex) {
+                    Logger.getLogger(RicaviGiornalieriServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            List <PiattoXQuantita> ricavi = tm.guadagnoGiornalieroPiatti(date1);
+            Integer guadagno_totale = tm.guadagnoGiornaliero(date1);
             request.setAttribute("ricavi", ricavi);
             request.setAttribute("totale", guadagno_totale);
             request.getRequestDispatcher("ricaviGiornalieri.jsp")

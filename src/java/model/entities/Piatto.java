@@ -7,22 +7,13 @@ package model.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author ciro
  */
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Piatto.findAll", query = "SELECT p FROM Piatto p"),
-    @NamedQuery(name = "Piatto.findById", query = "SELECT p FROM Piatto p WHERE p.id = :id"),
-    @NamedQuery(name = "Piatto.findByCategoria", query = "SELECT p FROM Piatto p WHERE p.categoria = :categoria"),
-    @NamedQuery(name = "Piatto.findCategorie", query = "SELECT DISTINCT p.categoria FROM Piatto p"),
-    @NamedQuery(name = "Piatto.findByIds", query = "SELECT p FROM Piatto p WHERE p.id IN :ids")})
 public class Piatto implements Serializable {
 
     private static final long serialVersionUID = 1L;
