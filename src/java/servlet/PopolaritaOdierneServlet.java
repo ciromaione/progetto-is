@@ -6,12 +6,9 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.managers.AuthenticationManager;
 import model.managers.TitolareManager;
-import model.managers.TitolareManager.PiattoXQuantita;
 
 /**
  *
- * @author ciro
+ * @author Alice Vidoni
  */
-@WebServlet(name = "RicaviGiornalieriServlet", urlPatterns = {"/ricavigiornalieri"})
-public class RicaviGiornalieriServlet extends HttpServlet {
+@WebServlet(name = "PopolaritaOdierneServlet", urlPatterns = {"/popolaritaodierne"})
+public class PopolaritaOdierneServlet extends HttpServlet {
     
     @Inject
     TitolareManager tm;
@@ -43,16 +39,11 @@ public class RicaviGiornalieriServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String data=request.getParameter("date");
-        Date date1 = null;
-        try {  
-             date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
-        } catch (ParseException ex) {
-            Logger.getLogger(RicaviGiornalieriServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        GregorianCalendar date=new GregorianCalendar();
+        int mese=date.get(Calendar.MONTH)+1;
+        int anno=date.get(Calendar.YEAR);
         
         if(authAs == null) {
             request.setAttribute("target", "ricavigiornalieri");
@@ -67,14 +58,12 @@ public class RicaviGiornalieriServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            List <PiattoXQuantita> ricavi=tm.guadagnoGiornalieroPiatti(date1);
-            int guadagno_totale=tm.guadagnoGiornaliero(date1);
-            request.setAttribute("ricavi", ricavi);
-            request.setAttribute("totale", guadagno_totale);
-            request.getRequestDispatcher("ricaviGiornalieri.jsp")
+            List <TitolareManager.PiattoXQuantita> popolarita=tm.popolaritaPiattiMensile(mese,anno);
+            request.setAttribute("popolarita", popolarita);
+            request.getRequestDispatcher("popolaritaPiatti.jsp")
                     .forward(request, response);
         }
-       
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

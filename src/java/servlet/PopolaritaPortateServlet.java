@@ -6,12 +6,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,18 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.managers.AuthenticationManager;
 import model.managers.TitolareManager;
-import model.managers.TitolareManager.PiattoXQuantita;
 
 /**
  *
- * @author ciro
+ * @author Alice Vidoni
  */
-@WebServlet(name = "RicaviGiornalieriServlet", urlPatterns = {"/ricavigiornalieri"})
-public class RicaviGiornalieriServlet extends HttpServlet {
-    
+@WebServlet(name = "PopolaritaPortateServlet", urlPatterns = {"/popolaritaportate"})
+public class PopolaritaPortateServlet extends HttpServlet {
+
     @Inject
     TitolareManager tm;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,38 +36,32 @@ public class RicaviGiornalieriServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
-        String data=request.getParameter("date");
-        Date date1 = null;
-        try {  
-             date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
-        } catch (ParseException ex) {
-            Logger.getLogger(RicaviGiornalieriServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        String mtemp=(String) request.getAttribute("mese");
+        int mese=Integer.parseInt(mtemp);
+        String atemp=(String) request.getAttribute("anno");
+        int anno=Integer.parseInt(atemp);
+                
         if(authAs == null) {
-            request.setAttribute("target", "ricavigiornalieri");
+            request.setAttribute("target", "popolaritaportate");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.STAFF) {
             request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
-            request.setAttribute("target", "ricavigiornalieri");
+            request.setAttribute("target", "popolaritaportate");
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
-            List <PiattoXQuantita> ricavi=tm.guadagnoGiornalieroPiatti(date1);
-            int guadagno_totale=tm.guadagnoGiornaliero(date1);
-            request.setAttribute("ricavi", ricavi);
-            request.setAttribute("totale", guadagno_totale);
-            request.getRequestDispatcher("ricaviGiornalieri.jsp")
+            List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(mese, anno);
+            request.setAttribute("piatti", piatti);
+            request.getRequestDispatcher("popolaritaPiatti.jsp")
                     .forward(request, response);
+        
         }
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
