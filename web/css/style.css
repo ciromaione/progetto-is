@@ -99,3 +99,8 @@ html, body{
 	margin-left:10%;
 	margin-right:10%;
 }
+
+.title {
+    text-align: center;
+    padding: 20px;
+}

@@ -38,7 +38,7 @@
                         <td> € <%=piatto.getPrezzoString() %></td>
                         <td>
                             <form action="rimuovi" method="GET">
-                                <input type="hidden" name="id-piatto" value="id"> <%=piatto.getId() %>
+                                <input type="hidden" name="id-piatto" value="<%=piatto.getId() %>">
                                 <input type="submit" value="Rimuovi" class="btn btn-danger">
                             </form>
                         </td>

@@ -74,6 +74,31 @@ public class MenuManager {
         }
     }
     
+    public List<Ingrediente> getIngredienti() {
+        try {
+            PreparedStatement ps = conn.prepareStatement(""
+                    + "SELECT id, nome, categoria, sovrapprezzo_cent "
+                    + "FROM ingrediente");
+            
+            ResultSet rs = ps.executeQuery();
+            
+            ArrayList<Ingrediente> results = new ArrayList<>();
+            while(rs.next()){
+                Ingrediente ing = new Ingrediente();
+                ing.setId(rs.getInt(1));
+                ing.setNome(rs.getString(2));
+                ing.setCategoria(rs.getString(3));
+                ing.setSovrapprezzoCent(rs.getInt(4));
+                results.add(ing);
+            }
+            
+            return results;
+            
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }            
+    
     private Collection<Ingrediente> getIngredientiList(int id, String table) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(""
                 + "SELECT i.id, i.nome, i.categoria, i.sovrapprezzo_cent "

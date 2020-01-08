@@ -197,7 +197,6 @@ public class TitolareManager {
                 piatto.setNome(rs.getString(2));
                 piatto.setCategoria(rs.getString(3));
                 piatto.setPrezzoCent(rs.getInt(4));
-                piatto.setFoto(rs.getString(5));
                 results.add(piatto);
             }
             return results;
