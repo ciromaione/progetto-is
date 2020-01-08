@@ -67,18 +67,5 @@ public class OrdineStaff implements Serializable {
     public void addTotaleCent(Integer totaleCent) {
         this.totaleCent += totaleCent;
     }
-    
-    public String getPrezzoString() {
-        String price = Integer.toString(this.totaleCent);
-        int size = price.length();
-        switch (size) {
-            case 1:
-                return "0,0" + price;
-            case 2:
-                return "0," + price;
-            default:
-                return price.substring(0, size-2)+","+price.substring(size-2);
-        }
-    }
    
 }

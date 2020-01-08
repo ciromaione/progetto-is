@@ -6,14 +6,13 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.Collection;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entities.Conto;
+import model.managers.AuthenticationManager;
 import model.managers.OrdiniSingleton;
 
 /**
@@ -45,12 +44,9 @@ public class VisualizzaContiServlet extends HttpServlet {
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
-        else {
-            Collection<Conto> conti = os.getRichiesteConto();
-            request.setAttribute("conti", conti);
+        else
             request.getRequestDispatcher("conti.jsp")
                     .forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

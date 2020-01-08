@@ -7,7 +7,8 @@ package model.managers;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
@@ -22,8 +23,8 @@ import model.entities.OrdineStaff;
 @Lock(LockType.WRITE)
 public class OrdiniSingleton {
 
-    private Map<String, OrdineStaff> ordiniAttivi;
-    private Map<Integer, OrdineStaff> ordiniDaCompletare;
+    private HashMap<String, OrdineStaff> ordiniAttivi;
+    private HashMap<Integer, OrdineStaff> ordiniDaCompletare;
     private HashMap<String, Conto> richiesteConto;
     private int lastId;
 
@@ -61,13 +62,6 @@ public class OrdiniSingleton {
         ordiniDaCompletare.put(id, ordine);
         ordine.setId(id);
         return ordine;
-    }
-    
-    public Conto addRichiestaConto(Conto conto) {
-        String totale = ordiniAttivi.get(conto.getTavolo()).getPrezzoString();
-        conto.setTotale(totale);
-        richiesteConto.put(conto.getTavolo(), conto);
-        return conto;
     }
     
     public void removeFromOrdiniDaCompletare(int id) {

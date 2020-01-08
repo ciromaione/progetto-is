@@ -6,7 +6,6 @@
 package service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -17,7 +16,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import model.entities.Conto;
 import model.entities.OrdineStaff;
 import model.managers.OrdiniSingleton;
 
@@ -55,11 +53,10 @@ public class ClientAzioniService {
     @GET
     @Path("conto/{tavolo}/{metodo}")
     public void richiestaConto(@PathParam("tavolo") String tavolo, @PathParam("metodo") String metodo) {
-        Conto conto = new Conto();
-        conto.setTavolo(tavolo);
-        conto.setMetodo(metodo);
-        conto = os.addRichiestaConto(conto);
-        String json = new Gson().toJson(conto);
-        eventConto.fire(json);
+        String json = "{"
+                + "tavolo:'"+tavolo+"',"
+                + "metodo:'"+metodo+"'}";
+        os.removeFromOrdiniAttivi(json);
+        eventConto.fire(tavolo);
     }
 }

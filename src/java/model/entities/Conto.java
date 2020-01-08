@@ -5,24 +5,25 @@
  */
 package model.entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author ciro
  */
 public class Conto {
     
-    private String tavolo;
-    private String metodo;
-    private String totale;
-
-    
-    public Conto() {
+    public enum Metodo {
+        CONTANTI,
+        CARTA
     }
+    
+    private String tavolo;
+    private Metodo metodo;
 
-    public Conto(String tavolo, String metodo) {
+    public Conto(String tavolo, Metodo metodo) {
         this.tavolo = tavolo;
         this.metodo = metodo;
-        this.totale = totale;
     }
 
     public String getTavolo() {
@@ -33,21 +34,12 @@ public class Conto {
         this.tavolo = tavolo;
     }
 
-    public String getMetodo() {
+    public Metodo getMetodo() {
         return metodo;
     }
 
-    public void setMetodo(String metodo) {
+    public void setMetodo(Metodo metodo) {
         this.metodo = metodo;
     }
-
-    public String getTotale() {
-        return totale;
-    }
-
-    public void setTotale(String totale) {
-        this.totale = totale;
-    }
-    
     
 }

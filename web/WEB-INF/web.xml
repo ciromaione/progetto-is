@@ -3,7 +3,30 @@
     <welcome-file-list>
         <welcome-file>home.html</welcome-file>
     </welcome-file-list>
-    
+    <servlet>
+        <servlet-name>RicaviGiornalieri</servlet-name>
+        <servlet-class>servlet.RicaviGiornalieri</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PopolaritàPortate</servlet-name>
+        <servlet-class>servlet.PopolaritàPortate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PopolaritaPortate</servlet-name>
+        <servlet-class>servlet.PopolaritaPortateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RicaviGiornalieri</servlet-name>
+        <url-pattern>/RicaviGiornalieri</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PopolaritàPortate</servlet-name>
+        <url-pattern>/Popolarit_Portate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PopolaritaPortate</servlet-name>
+        <url-pattern>/PopolaritaPortate</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
