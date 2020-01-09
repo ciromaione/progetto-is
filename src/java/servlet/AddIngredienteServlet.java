@@ -5,7 +5,9 @@
  */
 package servlet;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -15,17 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entities.Ingrediente;
 import model.managers.AuthenticationManager;
-import model.managers.MenuManager;
+import model.managers.TitolareManager;
 
 /**
  *
- * @author Alice Vidoni
+ * @author ciro
  */
-@WebServlet(name = "AggiungiPortateServlet", urlPatterns = {"/aggiungiportate"})
-public class AggiungiPortateServlet extends HttpServlet {
+@WebServlet(name = "AddIngredienteServlet", urlPatterns = {"/addingrediente"})
+public class AddIngredienteServlet extends HttpServlet {
     
     @Inject
-    MenuManager mm;
+    TitolareManager tm;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,13 +57,14 @@ public class AggiungiPortateServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
+            String ingrediente = request.getParameter("ingrediente");
+            Gson gson = new Gson();
             
-            List<String> categorie=mm.getCategorie();
-            List<Ingrediente> ingredienti=mm.getIngredienti();
-            request.setAttribute("categorie", categorie);
-            request.setAttribute("ingredienti", ingredienti);
-             request.getRequestDispatcher("aggiungiportata.jsp")
-                    .forward(request, response);
+            Ingrediente ing = gson.fromJson(ingrediente, Ingrediente.class);
+            
+            int id = tm.aggiungiIngrediente(ing);
+            
+            response.getWriter().append(""+id);
                     
         }
     }

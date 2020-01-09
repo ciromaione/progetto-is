@@ -152,13 +152,13 @@
                         <div class="form-group row">
                             <label for="sovrapprezzo" class="col-3 col-form-label">Sovrapprezzo</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="sovrapprezzo" id="sovrapprezzo">
+                                <input type="text" class="form-control" name="sovrapprezzo" id="sovrapprezzo" placeholder="0,00">
                             </div>
                         </div>
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Aggiungi</button>
+                        <button type="button" class="btn btn-success" id="salva-ing">Salva</button>
                     </div>
                 </div>
             </div>
@@ -166,6 +166,7 @@
 
         
         <%@include file="imports.html" %>
+        <script src="javascript/nuovoingredienteAJAX.js"></script>
         
     </body>
 </html>

@@ -91,17 +91,22 @@ public class TitolareManager {
         }
     }
     
-    public void aggiungiIngrediente(Ingrediente ingrediente) {
+    public int aggiungiIngrediente(Ingrediente ingrediente) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "INSERT INTO ingrediente (nome, categoria, sovrapprezzo_cent) "
-                    + "VALUES (?, ?, ?)");
+                    + "VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, ingrediente.getNome());
             ps.setString(2, ingrediente.getCategoria());
             ps.setInt(3, ingrediente.getSovrapprezzoCent());
-            
-            ps.executeUpdate();
-            
+        
+            if(ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            return rs.getInt(1);
+
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
