@@ -57,7 +57,7 @@ public class TitolareManager {
     public TitolareManager() {
     }
     
-    public void aggiungiPiatto(Piatto piatto) {
+    public void aggiungiPiatto(Piatto piatto, int[] ing, int[] ingAgg, int[] ingRim) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "INSERT INTO piatto (nome, categoria, prezzo_cent, foto) "
@@ -66,11 +66,17 @@ public class TitolareManager {
             ps.setString(2, piatto.getCategoria());
             ps.setInt(3, piatto.getPrezzoCent());
             ps.setString(4, piatto.getFoto());
-            ps.executeUpdate();
+            if(ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
             
-            saveRelationship(piatto.getId(), piatto.getIngredienti(), "piattoXing");
-            saveRelationship(piatto.getId(), piatto.getIngredientiAggiungibili(), "piattoXing_ins");
-            saveRelationship(piatto.getId(), piatto.getIngredientiRimovibili(), "piattoXing_rem");
+            
+            saveRelationship(id, ing, "piattoXing");
+            saveRelationship(id, ingAgg, "piattoXing_ins");
+            saveRelationship(id, ingRim, "piattoXing_rem");
             
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -212,15 +218,17 @@ public class TitolareManager {
     }
     
     
-    private void saveRelationship(int id, Collection<Ingrediente> ing, String table) throws SQLException {
+    private void saveRelationship(int id, int[] ing, String table) throws SQLException {
         PreparedStatement ps;
-        for (Ingrediente i : ing) {
-            ps = conn.prepareStatement(""
-                    + "INSERT INTO "+table+" (id_ingrediente, id_piatto) "
-                    + "VALUES (?, ?)");
-            ps.setInt(1, i.getId());
-            ps.setInt(2, id);
-            ps.executeUpdate();
+        if(ing != null) {
+            for (Integer idIng : ing) {
+                ps = conn.prepareStatement(""
+                        + "INSERT INTO "+table+" (id_ingrediente, id_piatto) "
+                        + "VALUES (?, ?)");
+                ps.setInt(1, idIng);
+                ps.setInt(2, id);
+                ps.executeUpdate();
+            }
         }
     }
 }

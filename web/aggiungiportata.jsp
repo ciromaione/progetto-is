@@ -18,7 +18,7 @@
         <div class="container">
             <h2 class="title">Aggiungi Piatto</h2>
             
-            <form action="aggiungi" method="POST" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+            <form action="aggiungi" method="POST" id="form" style="max-width: 700px; margin-left: auto; margin-right: auto;">
                 
                 <div class="form-group row">
                     <label for="nome" class="col-3 col-form-label">Nome Piatto</label>
@@ -41,7 +41,7 @@
                 <div class="form-group row">
                     <label for="prezzo" class="col-3 col-form-label">Prezzo Piatto</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="prezzo" id="prezzo">
+                        <input type="text" class="form-control" name="prezzo" id="prezzo" placeholder="0,00">
                     </div>
                 </div>
                 
@@ -70,8 +70,8 @@
                     <div class="col-3"></div>
                     <div class="col-9">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="aggiungibile">
-                            <label class="form-check-label" for="aggiungibile">Aggiungibile</label>
+                            <input type="radio" class="form-check-input" name="tipo-ing" value="0" checked>
+                            <label class="form-check-label">Fisso</label>
                         </div>
                     </div>
                 </div>
@@ -79,15 +79,24 @@
                     <div class="col-3"></div>
                     <div class="col-9">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rimovibile">
-                            <label class="form-check-label" for="rimovibile">Rimovibile</label>
+                            <input type="radio" class="form-check-input" name="tipo-ing" value="1">
+                            <label class="form-check-label">Aggiungibile</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-3"></div>
                     <div class="col-9">
-                        <button class="btn btn-success">Aggiungi</button>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="tipo-ing" value="2">
+                            <label class="form-check-label">Rimovibile</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        <a class="btn btn-success" id="aggiungi-btn" style="text-decoration: none;color: white;">Aggiungi</a>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -104,19 +113,21 @@
                         <label>Ingredienti rimovibili</label>
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" id="txtfissi" rows="4"></textarea>
+                        <textarea class="form-control" id="txtfissi" rows="4" readonly></textarea>
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" id="txtagg" rows="4"></textarea>
+                        <textarea class="form-control" id="txtagg" rows="4" readonly></textarea>
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" id="txtrem" rows="4"></textarea>
+                        <textarea class="form-control" id="txtrim" rows="4" readonly></textarea>
                     </div>
                 </div>
                 
                 <hr>
-                
-                <input type="submit" value="Conferma" class="btn btn-success">
+                <input type="hidden" id="ing-fissi" name="ing-fissi">
+                <input type="hidden" id="ing-agg" name="ing-agg">
+                <input type="hidden" id="ing-rim" name="ing-rim">
+                <a class="btn btn-success" id="submit-btn" style="text-decoration: none; color: white">Conferma</a>
                 
             </form>
         </div>
@@ -166,7 +177,13 @@
 
         
         <%@include file="imports.html" %>
-        <script src="javascript/nuovoingredienteAJAX.js"></script>
-        
+        <script src="javascript/aggiungiportata.js"></script>
+        <%if(request.getAttribute("conferma") != null) {%>
+        <script>
+            $(document).ready(() => {
+                alert("Piatto aggiunto con successo!");
+            });
+        </script>
+        <%}%>
     </body>
 </html>

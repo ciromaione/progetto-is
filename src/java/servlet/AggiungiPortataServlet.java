@@ -5,28 +5,28 @@
  */
 package servlet;
 
+import com.google.gson.Gson;
 import java.io.IOException;
-import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entities.Ingrediente;
+import model.entities.Piatto;
 import model.managers.AuthenticationManager;
-import model.managers.MenuManager;
+import model.managers.TitolareManager;
 
 /**
  *
- * @author Alice Vidoni
+ * @author ciro
  */
-@WebServlet(name = "AggiungiPortateServlet", urlPatterns = {"/aggiungiportate"})
-public class AggiungiPortateServlet extends HttpServlet {
-    
-    @Inject
-    MenuManager mm;
+@WebServlet(name = "AggiungiPortataServlet", urlPatterns = {"/aggiungi"})
+public class AggiungiPortataServlet extends HttpServlet {
 
+    @Inject
+    private TitolareManager tm;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,7 +38,6 @@ public class AggiungiPortateServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Integer authAs = (Integer) request.getSession()
                 .getAttribute("authAs");
         
@@ -55,14 +54,31 @@ public class AggiungiPortateServlet extends HttpServlet {
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.TITOLARE) {
+            String nome = request.getParameter("nome");
+            String categoria = request.getParameter("categoria");
+            String prezzoString = request.getParameter("prezzo");
+            String ingJSON = request.getParameter("ing-fissi");
+            String ingAggJSON = request.getParameter("ing-agg");
+            String ingRimJSON = request.getParameter("ing-rim");
             
-            List<String> categorie=mm.getCategorie();
-            List<Ingrediente> ingredienti=mm.getIngredienti();
-            request.setAttribute("categorie", categorie);
-            request.setAttribute("ingredienti", ingredienti);
-             request.getRequestDispatcher("aggiungiportata.jsp")
+            prezzoString = prezzoString.replace(',', '.');
+            int prezzoCent = (int)(Float.parseFloat(prezzoString)*100);
+            
+            Gson gson = new Gson();
+            int[] ing = gson.fromJson(ingJSON, int[].class);
+            int[] ingAgg = gson.fromJson(ingAggJSON, int[].class);
+            int[] ingRim = gson.fromJson(ingRimJSON, int[].class);
+            
+            Piatto piatto = new Piatto();
+            piatto.setNome(nome);
+            piatto.setCategoria(categoria);
+            piatto.setPrezzoCent(prezzoCent);
+            
+            tm.aggiungiPiatto(piatto, ing, ingAgg, ingRim);
+            
+            request.setAttribute("conferma", true);
+            request.getRequestDispatcher("aggiungiportate")
                     .forward(request, response);
-                    
         }
     }
 
