@@ -4,6 +4,8 @@
     Author     : ciro
 --%>
 
+<%@page import="model.entities.Ingrediente"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +13,8 @@
     <%@include file="head.html" %>
     
     <body>
-        
+        <%List<String> categorie = (List<String>) request.getAttribute("categorie");
+        List<Ingrediente> ingredienti = (List<Ingrediente>) request.getAttribute("ingredienti");%>
         <div class="container">
             <h2 class="title">Aggiungi Piatto</h2>
             
@@ -28,9 +31,9 @@
                     <label for="categoria" class="col-3 col-form-label">Categoria Piatto</label>
                     <div class="col-9">
                         <select class="form-control" id="categoria" name="categoria">
-                            <option value="categoria1">Categoria 1</option>
-                            <option value="categoria2">Categoria 2</option>
-                            <option value="categoria3">Categoria 3</option>
+                            <% for(String categoria: categorie) { %>
+                            <option value="categoria1"><%=categoria %></option>
+                            <% } %>
                         </select>
                     </div>
                 </div>
