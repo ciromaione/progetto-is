@@ -20,9 +20,10 @@
                             <form id="login-form" class="form" action="performlogin" method="post" style="margin-top: 50%">
                                 <%
                                     String target = (String) request.getAttribute("target");
+                                    Integer authTypeReq = (Integer) request.getAttribute("authTypeReq");
                                     String loginMSG = " ";
-                                    if(target != null)
-                                        if(target.equals("areariservata"))
+                                    if(authTypeReq != null)
+                                        if(authTypeReq == AuthenticationManager.TITOLARE)
                                             loginMSG += "Titolare";
                                         else loginMSG += "Staff";
                                 %>
@@ -38,24 +39,19 @@
                                     <input type="password" name="password" id="password" class="form-control">
                                 </div>
                                 <%
-                                    if(target == null) {
+                                    if(authTypeReq == null) {
                                 %>
                                 <input type="radio" name="auth-type-request" value="<%=AuthenticationManager.TITOLARE%>" > Titolare<br>
                                 <input type="radio" name="auth-type-request" value="<%=AuthenticationManager.STAFF%>"> Staff<br>
                                 <%
                                     }
                                     else {
-                                        if(target.equals("areariservata")) {
                                 %>
-                                <input type="hidden" name="auth-type-request" value="<%=AuthenticationManager.TITOLARE%>">
+                                <input type="hidden" name="auth-type-request" value="<%=authTypeReq%>">
                                 <%
-                                        }
-                                        else {
+                                    }
                                 %>
-                                <input type="hidden" name="auth-type-request" value="<%=AuthenticationManager.STAFF%>">
-                                <%
-                                        }
-                                %>
+                                <% if(target != null) {%>
                                 <input type="hidden" name="target" value="<%=target%>">
                                 <%
                                     }
