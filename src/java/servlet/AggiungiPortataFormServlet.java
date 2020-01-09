@@ -6,18 +6,26 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entities.Ingrediente;
+import model.managers.AuthenticationManager;
+import model.managers.MenuManager;
 
 /**
  *
- * @author ciro
+ * @author Alice Vidoni
  */
-@WebServlet(name = "AggiungiPortataFormServlet", urlPatterns = {"/aggiungiportata"})
+@WebServlet(name = "AggiungiPortataFormServlet", urlPatterns = {"/aggiungiportate"})
 public class AggiungiPortataFormServlet extends HttpServlet {
+    
+    @Inject
+    MenuManager mm;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,6 +39,31 @@ public class AggiungiPortataFormServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        Integer authAs = (Integer) request.getSession()
+                .getAttribute("authAs");
+        
+        if(authAs == null) {
+            request.setAttribute("target", "aggiungiportate");
+            request.getRequestDispatcher("login")
+                    .forward(request, response);
+        }
+        else if(authAs == AuthenticationManager.STAFF) {
+            request.getSession().setAttribute("authAs", null);
+            request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
+            request.setAttribute("target", "aggiungiportate");
+            request.getRequestDispatcher("login")
+                    .forward(request, response);
+        }
+        else if(authAs == AuthenticationManager.TITOLARE) {
+            
+            List<String> categorie=mm.getCategorie();
+            List<Ingrediente> ingredienti=mm.getIngredienti();
+            request.setAttribute("categorie", categorie);
+            request.setAttribute("ingredienti", ingredienti);
+             request.getRequestDispatcher("aggiungiportata.jsp")
+                    .forward(request, response);
+                    
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
