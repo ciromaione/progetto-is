@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.managers.AuthenticationManager;
 import model.managers.OrdiniSingleton;
 
 /**
@@ -40,6 +41,7 @@ public class RimuoviContoServlet extends HttpServlet {
                 .getAttribute("authAs");
         if(authAs == null) {
             request.setAttribute("target", "richiesteconto");
+            request.setAttribute("authTypeReq", AuthenticationManager.STAFF);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }

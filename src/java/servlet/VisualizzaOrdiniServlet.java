@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entities.OrdineStaff;
+import model.managers.AuthenticationManager;
 import model.managers.OrdiniSingleton;
 
 /**
@@ -42,6 +43,7 @@ public class VisualizzaOrdiniServlet extends HttpServlet {
                 .getAttribute("authAs");
         if(authAs == null) {
             request.setAttribute("target", "ordini");
+            request.setAttribute("authTypeReq", AuthenticationManager.STAFF);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }

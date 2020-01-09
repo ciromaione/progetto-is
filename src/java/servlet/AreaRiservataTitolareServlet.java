@@ -36,6 +36,7 @@ public class AreaRiservataTitolareServlet extends HttpServlet {
                 .getAttribute("authAs");
         if(authAs == null) {
             request.setAttribute("target", "areariservata");
+            request.setAttribute("authTypeReq", AuthenticationManager.TITOLARE);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
@@ -43,6 +44,7 @@ public class AreaRiservataTitolareServlet extends HttpServlet {
             request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
             request.setAttribute("target", "areariservata");
+            request.setAttribute("authTypeReq", AuthenticationManager.TITOLARE);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }

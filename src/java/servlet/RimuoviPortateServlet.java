@@ -44,12 +44,14 @@ public class RimuoviPortateServlet extends HttpServlet {
         
         if(authAs == null) {
             request.setAttribute("target", "rimuoviportate");
+            request.setAttribute("authTypeReq", AuthenticationManager.TITOLARE);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
         else if(authAs == AuthenticationManager.STAFF) {
             request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
+            request.setAttribute("authTypeReq", AuthenticationManager.TITOLARE);
             request.setAttribute("target", "rimuoviportate");
             request.getRequestDispatcher("login")
                     .forward(request, response);

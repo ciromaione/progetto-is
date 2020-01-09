@@ -47,6 +47,7 @@ public class RicaviGiornalieriServlet extends HttpServlet {
         
         if(authAs == null) {
             request.setAttribute("target", "ricavigiornalieri");
+            request.setAttribute("authTypeReq", AuthenticationManager.TITOLARE);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
@@ -54,6 +55,7 @@ public class RicaviGiornalieriServlet extends HttpServlet {
             request.getSession().setAttribute("authAs", null);
             request.setAttribute("errMSG", "Devi loggarti come Titolare per accedere all'area riservata!");
             request.setAttribute("target", "ricavigiornalieri");
+            request.setAttribute("authTypeReq", AuthenticationManager.TITOLARE);
             request.getRequestDispatcher("login")
                     .forward(request, response);
         }
