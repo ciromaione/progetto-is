@@ -57,9 +57,9 @@
                     <label for="ingredienti" class="col-3 col-form-label">Ingredienti</label>
                     <div class="col-7">
                         <select class="form-control" id="ingredienti">
-                            <option value="categoria1">Categoria 1</option>
-                            <option value="categoria2">Categoria 2</option>
-                            <option value="categoria3">Categoria 3</option>
+                            <% for(Ingrediente i: ingredienti) { %>
+                            <option value="<%=i.getId()%>"><%=i.getNome() %></option>
+                            <% } %>
                         </select>
                     </div>
                     <div class="col-2">
@@ -142,9 +142,10 @@
                             <label for="cat-ing" class="col-2 col-form-label">Categoria</label>
                             <div class="col-10">
                                 <select class="form-control" id="cat-ing">
-                                    <option value="categoria1">Categoria 1</option>
-                                    <option value="categoria2">Categoria 2</option>
-                                    <option value="categoria3">Categoria 3</option>
+                                    <option value="carne">Carne</option>
+                                    <option value="contorno">Contorno</option>
+                                    <option value="salsa">Salsa</option>
+                                    <option value="formaggio">Formaggio</option>
                                 </select>
                             </div>
                         </div>
