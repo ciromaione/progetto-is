@@ -20,14 +20,14 @@ import model.entities.OrdineStaff;
  */
 @Singleton
 @Lock(LockType.WRITE)
-public class OrdiniSingleton {
+public class OrdineDatiSingleton {
 
     private Map<String, OrdineStaff> ordiniAttivi;
     private Map<Integer, OrdineStaff> ordiniDaCompletare;
     private HashMap<String, Conto> richiesteConto;
     private int lastId;
 
-    public OrdiniSingleton() {
+    public OrdineDatiSingleton() {
         ordiniAttivi = new HashMap<>();
         ordiniDaCompletare = new HashMap<>();
         richiesteConto = new HashMap<>();

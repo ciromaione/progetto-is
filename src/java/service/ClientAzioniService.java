@@ -6,7 +6,6 @@
 package service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -19,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.entities.Conto;
 import model.entities.OrdineStaff;
-import model.managers.OrdiniSingleton;
+import model.managers.OrdineManager;
 
 /**
  *
@@ -30,7 +29,7 @@ import model.managers.OrdiniSingleton;
 public class ClientAzioniService {
     
     @Inject
-    private OrdiniSingleton os;
+    private OrdineManager om;
     @Inject @ConfermaEvent
     private Event<String> eventConferma;
     @Inject @ContoEvent
@@ -41,7 +40,7 @@ public class ClientAzioniService {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response confermaOrdine(OrdineStaff ordine) {
         try {
-            OrdineStaff ord = os.addOrdine(ordine);
+            OrdineStaff ord = om.addOrdine(ordine);
             String ordineJSON = new Gson().toJson(ord);
             eventConferma.fire(ordineJSON);
         } catch (Throwable t) {
@@ -58,7 +57,7 @@ public class ClientAzioniService {
         Conto conto = new Conto();
         conto.setTavolo(tavolo);
         conto.setMetodo(metodo);
-        conto = os.addRichiestaConto(conto);
+        conto = om.addRichiestaConto(conto);
         String json = new Gson().toJson(conto);
         eventConto.fire(json);
     }

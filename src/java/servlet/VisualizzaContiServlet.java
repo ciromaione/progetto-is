@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entities.Conto;
 import model.managers.AuthenticationManager;
-import model.managers.OrdiniSingleton;
+import model.managers.OrdineManager;
 
 /**
  *
@@ -25,7 +25,7 @@ import model.managers.OrdiniSingleton;
 public class VisualizzaContiServlet extends HttpServlet {
     
     @Inject
-    private OrdiniSingleton os;
+    private OrdineManager om;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,7 +48,7 @@ public class VisualizzaContiServlet extends HttpServlet {
                     .forward(request, response);
         }
         else {
-            Collection<Conto> conti = os.getRichiesteConto();
+            Collection<Conto> conti = om.getRichiesteConto();
             request.setAttribute("conti", conti);
             request.getRequestDispatcher("conti.jsp")
                     .forward(request, response);

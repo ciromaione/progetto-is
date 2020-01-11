@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.managers.AuthenticationManager;
-import model.managers.OrdiniSingleton;
+import model.managers.OrdineManager;
 
 /**
  *
@@ -23,7 +23,7 @@ import model.managers.OrdiniSingleton;
 public class RimuoviOrdineServlet extends HttpServlet {
 
     @Inject
-    private OrdiniSingleton os;
+    private OrdineManager om;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,7 @@ public class RimuoviOrdineServlet extends HttpServlet {
         }
         else {
             int id = Integer.parseInt(request.getParameter("id"));
-            os.removeFromOrdiniDaCompletare(id);
+            om.removeFromOrdiniDaCompletare(id);
             response.sendRedirect("ordini");
         }
     }

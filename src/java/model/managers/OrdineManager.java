@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import model.entities.Conto;
 import model.entities.OrdineStaff;
 import model.entities.Piatto;
 import model.entities.PiattoStaff;
@@ -26,14 +27,14 @@ import model.entities.PiattoStaff;
  * @author ciro
  */
 @Singleton
-public class StaffManager {
+public class OrdineManager {
 
     @Inject
     Connection conn;
     @Inject
-    OrdiniSingleton os;
+    OrdineDatiSingleton os;
 
-    public StaffManager() {
+    public OrdineManager() {
     }
     
     public void salvaConto(String tavolo) {
@@ -67,6 +68,39 @@ public class StaffManager {
             throw new RuntimeException(ex);
         }
         
+    }
+    
+    public Collection<OrdineStaff> getOrdiniAttivi() {
+        return os.getOrdiniAttivi();
+    }
+    
+    public Collection<OrdineStaff> getOrdiniDaCompletare() {
+        return os.getOrdiniDaCompletare();
+    }
+    
+    public Collection<Conto> getRichiesteConto() {
+        return os.getRichiesteConto();
+    }
+    
+    
+    public OrdineStaff addOrdine(OrdineStaff ordine) {
+        return os.addOrdine(ordine);
+    }
+    
+    public Conto addRichiestaConto(Conto conto) {
+        return os.addRichiestaConto(conto);
+    }
+    
+    public void removeFromOrdiniDaCompletare(int id) {
+        os.removeFromOrdiniDaCompletare(id);
+    }
+    
+    public OrdineStaff removeFromOrdiniAttivi(String tavolo) {
+        return os.removeFromOrdiniAttivi(tavolo);
+    }
+    
+    public void removeFromRichiesteConto(String tavolo) {
+        os.removeFromRichiesteConto(tavolo);
     }
 
     private void salvaPiatti(Integer idOrdine, List<PiattoStaff> piatti) throws SQLException {
