@@ -6,14 +6,13 @@
 package service;
 
 import java.util.List;
-import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.entities.Piatto;
+import model.entities.Menu;
 import model.managers.MenuManager;
 
 /**
@@ -29,15 +28,8 @@ public class ClientMenuService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, List<Piatto>> getMenu() {
+    public Menu getMenu() {
         return mm.getMenu();
-    }
-    
-    @GET
-    @Path("categorie")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getCategorie() {
-        return mm.getCategorie();
     }
     
 }
