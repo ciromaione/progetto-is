@@ -6,6 +6,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -28,7 +29,7 @@ public class ClientMenuService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Piatto> getMenu() {
+    public Map<String, List<Piatto>> getMenu() {
         return mm.getMenu();
     }
     

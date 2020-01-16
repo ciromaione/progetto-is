@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import model.entities.Ingrediente;
@@ -27,7 +29,7 @@ public class MenuManager {
     @Inject
     Connection conn;
     
-    public List<Piatto> getMenu() {
+    public Map<String, List<Piatto>> getMenu() {
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "SELECT id, nome, categoria, prezzo_cent, foto "
@@ -35,7 +37,7 @@ public class MenuManager {
             
             ResultSet rs = ps.executeQuery();
             
-            ArrayList<Piatto> all = new ArrayList<>();
+           Map<String, List<Piatto>> all = new HashMap<>();
             while(rs.next()) {
                 Piatto piatto = new Piatto();
                 piatto.setId(rs.getInt(1));
@@ -46,7 +48,9 @@ public class MenuManager {
                 piatto.setIngredienti(getIngredientiList(piatto.getId(), "piattoXing"));
                 piatto.setIngredientiAggiungibili(getIngredientiList(piatto.getId(), "piattoXing_ins"));
                 piatto.setIngredientiRimovibili(getIngredientiList(piatto.getId(), "piattoXing_rem"));
-                all.add(piatto);
+                if(!all.containsKey(piatto.getCategoria()))
+                    all.put(piatto.getCategoria(), new ArrayList<>());
+                all.get(piatto.getCategoria()).add(piatto);
             }
             return all;
             

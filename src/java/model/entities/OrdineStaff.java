@@ -19,10 +19,10 @@ public class OrdineStaff implements Serializable {
     
    private int id;
    private String tavolo;
-   private List<PiattoStaff> piatti;
+   private List<PiattoEffettivo> piatti;
    private Integer totaleCent;
 
-    public OrdineStaff(String tavolo, List<PiattoStaff> piatti, Integer TotaleCent) {
+    public OrdineStaff(String tavolo, List<PiattoEffettivo> piatti, Integer TotaleCent) {
         this.tavolo = tavolo;
         this.piatti = piatti;
         this.totaleCent = TotaleCent;
@@ -44,15 +44,15 @@ public class OrdineStaff implements Serializable {
         this.tavolo = tavolo;
     }
 
-    public List<PiattoStaff> getPiatti() {
+    public List<PiattoEffettivo> getPiatti() {
         return piatti;
     }
 
-    public void setPiatti(List<PiattoStaff> piatti) {
+    public void setPiatti(List<PiattoEffettivo> piatti) {
         this.piatti = piatti;
     }
     
-    public void addPiatti(List<PiattoStaff> piatti) {
+    public void addPiatti(List<PiattoEffettivo> piatti) {
         this.piatti.addAll(piatti);
     }
 

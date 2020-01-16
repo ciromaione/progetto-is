@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import model.entities.Conto;
 import model.entities.OrdineStaff;
 import model.entities.Piatto;
-import model.entities.PiattoStaff;
+import model.entities.PiattoEffettivo;
 
 /**
  *
@@ -43,7 +43,7 @@ public class OrdineManager {
             throw new RuntimeException("Ordine non presente in lista");
         
         Collection <Piatto> piatti = new ArrayList<>();
-        for(PiattoStaff p:ordineStaff.getPiatti())
+        for(PiattoEffettivo p:ordineStaff.getPiatti())
                 for(int i = 0; i<p.getQuantita(); ++i)
                     piatti.add(new Piatto(p.getIdPiatto()));
             
@@ -103,11 +103,11 @@ public class OrdineManager {
         os.removeFromRichiesteConto(tavolo);
     }
 
-    private void salvaPiatti(Integer idOrdine, List<PiattoStaff> piatti) throws SQLException {
+    private void salvaPiatti(Integer idOrdine, List<PiattoEffettivo> piatti) throws SQLException {
         
         Map<Integer, Integer> pxq = new HashMap<>();
         
-        for(PiattoStaff ps:piatti)
+        for(PiattoEffettivo ps:piatti)
             if(pxq.containsKey(ps.getIdPiatto())) {
                 int q = pxq.get(ps.getIdPiatto()) + ps.getQuantita();
                 pxq.put(ps.getIdPiatto(), q);
