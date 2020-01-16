@@ -53,12 +53,13 @@ public class ClientAzioniService {
 
     @GET
     @Path("conto/{tavolo}/{metodo}")
-    public void richiestaConto(@PathParam("tavolo") String tavolo, @PathParam("metodo") String metodo) {
+    public Response richiestaConto(@PathParam("tavolo") String tavolo, @PathParam("metodo") String metodo) {
         Conto conto = new Conto();
         conto.setTavolo(tavolo);
         conto.setMetodo(metodo);
         conto = om.addRichiestaConto(conto);
         String json = new Gson().toJson(conto);
         eventConto.fire(json);
+        return Response.ok().build();
     }
 }
