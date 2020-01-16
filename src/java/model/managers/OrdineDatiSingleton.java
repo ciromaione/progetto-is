@@ -25,13 +25,12 @@ public class OrdineDatiSingleton {
     private Map<String, OrdineStaff> ordiniAttivi;
     private Map<Integer, OrdineStaff> ordiniDaCompletare;
     private HashMap<String, Conto> richiesteConto;
-    private int lastId;
+    private int lastId = -1;
 
     public OrdineDatiSingleton() {
         ordiniAttivi = new HashMap<>();
         ordiniDaCompletare = new HashMap<>();
         richiesteConto = new HashMap<>();
-        lastId = -1;
     }
     
     public Collection<OrdineStaff> getOrdiniAttivi() {
@@ -72,10 +71,14 @@ public class OrdineDatiSingleton {
     
     public void removeFromOrdiniDaCompletare(int id) {
         ordiniDaCompletare.remove(id);
+        
     }
     
     public OrdineStaff removeFromOrdiniAttivi(String tavolo) {
-        return ordiniAttivi.remove(tavolo);
+        OrdineStaff tmp = ordiniAttivi.remove(tavolo);
+        if(ordiniAttivi.isEmpty() && ordiniDaCompletare.isEmpty())
+            this.lastId = -1;
+        return tmp;
     }
     
     public void removeFromRichiesteConto(String tavolo) {
