@@ -70,10 +70,6 @@ public class OrdineManager {
         
     }
     
-    public Collection<OrdineStaff> getOrdiniAttivi() {
-        return os.getOrdiniAttivi();
-    }
-    
     public Collection<OrdineStaff> getOrdiniDaCompletare() {
         return os.getOrdiniDaCompletare();
     }
@@ -93,10 +89,6 @@ public class OrdineManager {
     
     public void removeFromOrdiniDaCompletare(int id) {
         os.removeFromOrdiniDaCompletare(id);
-    }
-    
-    public OrdineStaff removeFromOrdiniAttivi(String tavolo) {
-        return os.removeFromOrdiniAttivi(tavolo);
     }
     
     public void removeFromRichiesteConto(String tavolo) {

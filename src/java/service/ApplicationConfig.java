@@ -31,6 +31,7 @@ public class ApplicationConfig extends javax.ws.rs.core.Application {
         resources.add(service.ClientAzioniService.class);
         resources.add(service.ClientMenuService.class);
         resources.add(service.ContoBroadcastService.class);
+        resources.add(service.LoginService.class);
         resources.add(service.OrdineBroadcastService.class);
     }
     

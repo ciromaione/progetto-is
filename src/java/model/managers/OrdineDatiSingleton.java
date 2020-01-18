@@ -33,10 +33,6 @@ public class OrdineDatiSingleton {
         richiesteConto = new HashMap<>();
     }
     
-    public Collection<OrdineStaff> getOrdiniAttivi() {
-        return ordiniAttivi.values();
-    }
-    
     public Collection<OrdineStaff> getOrdiniDaCompletare() {
         return ordiniDaCompletare.values();
     }

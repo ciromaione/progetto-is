@@ -6,15 +6,22 @@
 package servlet;
 
 import com.google.gson.Gson;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.entities.Piatto;
 import model.managers.AuthenticationManager;
+import model.managers.FotoIdManager;
 import model.managers.TitolareManager;
 
 /**
@@ -22,6 +29,7 @@ import model.managers.TitolareManager;
  * @author ciro
  */
 @WebServlet(name = "AggiungiPortataServlet", urlPatterns = {"/aggiungi"})
+@MultipartConfig
 public class AggiungiPortataServlet extends HttpServlet {
 
     @Inject
@@ -62,6 +70,32 @@ public class AggiungiPortataServlet extends HttpServlet {
             String ingJSON = request.getParameter("ing-fissi");
             String ingAggJSON = request.getParameter("ing-agg");
             String ingRimJSON = request.getParameter("ing-rim");
+            
+            
+            Part filePart = request.getPart("immagine");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            
+            int index = fileName.lastIndexOf('.');
+            String ext;
+            if (index == -1) {
+                ext = ".png";
+            } else {
+                ext = fileName.substring(index + 1);
+            }
+                                
+            InputStream initialStream = filePart.getInputStream();
+            
+            fileName = "img_"+FotoIdManager.getInstance().getNewIndex();
+            String newFilePath = getServletContext().getRealPath("img")+fileName+ext;
+            
+            File targetFile = new File(newFilePath);
+            
+            java.nio.file.Files.copy(
+                    initialStream,
+                    targetFile.toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+            initialStream.close();
+            
             
             prezzoString = prezzoString.replace(',', '.');
             int prezzoCent = (int)(Float.parseFloat(prezzoString)*100);
