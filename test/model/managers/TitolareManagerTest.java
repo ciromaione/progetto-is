@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJBException;
 import javax.ejb.embeddable.EJBContainer;
+import model.entities.Ingrediente;
 import model.entities.Piatto;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -107,7 +108,65 @@ public class TitolareManagerTest {
     }
     
    
-
+    @Test
+    public void TC_TM_2() throws Exception {
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer(properties);
+        TitolareManager instance = (TitolareManager) container.getContext().lookup("java:global/classes/TitolareManager");
+        
+        //TC_TM_2.1
+        Ingrediente ing = null;
+        try {
+            instance.aggiungiIngrediente(ing);
+            fail("Eccezione non lanciata");
+        } catch (EJBException ex) {
+        }
+        
+        //TC_TM_2.2
+        ing = new Ingrediente();
+        ing.setNome("iiiinnnnngggggrrrrreeeeedddddiiiiieeeeennnnnttttteeeee");
+        try {
+            instance.aggiungiIngrediente(ing);
+            fail("Eccezione non lanciata");
+        } catch (EJBException ex) {
+        }
+        
+        //TC_TM_2.3
+        ing = new Ingrediente();
+        ing.setNome("Porchetta");
+        ing.setCategoria("cccccaaaaarrrrrnnnnneeeeeeeeeeeeeee");
+        try {
+            instance.aggiungiIngrediente(ing);
+            fail("Eccezione non lanciata");
+        } catch (EJBException ex) {
+        }
+        
+        //TC_TM_2.4
+        ing = new Ingrediente();
+        ing.setNome("Porchetta");
+        ing.setCategoria("carne");
+        ing.setSovrapprezzoCent(-10);
+        try {
+            instance.aggiungiIngrediente(ing);
+            fail("Eccezione non lanciata");
+        } catch (EJBException ex) {
+        }
+        
+        //TC_TM_2.5
+        ing = new Ingrediente();
+        ing.setNome("Porchetta");
+        ing.setCategoria("Carne");
+        ing.setSovrapprezzoCent(150);
+        int id = instance.aggiungiIngrediente(ing);
+        try (Connection conn = ConnectionProducer.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT * FROM ingrediente WHERE id = ?");
+            ps.setInt(1, id);
+            assertTrue(ps.executeQuery().next());
+        }
+        
+        
+        container.close();
+    }
     
     
 }
