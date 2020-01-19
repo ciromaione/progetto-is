@@ -42,9 +42,6 @@ public class TitolareManagerTest {
             assertTrue(true);
         }
         
-        
-        
-        
         container.close();
     }
 
