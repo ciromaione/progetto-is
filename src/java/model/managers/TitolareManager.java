@@ -11,8 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import javax.ejb.ApplicationException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import model.entities.Ingrediente;
@@ -51,13 +51,21 @@ public class TitolareManager {
         }
     }
 
-    @Inject
+    //@Inject
     private Connection conn;
 
     public TitolareManager() {
+        conn = ConnectionProducer.getConnection();
     }
     
-    public void aggiungiPiatto(Piatto piatto, int[] ing, int[] ingAgg, int[] ingRim) {
+    public Piatto aggiungiPiatto(Piatto piatto, int[] ing, int[] ingAgg, int[] ingRim) {
+        
+        if(piatto == null) throw new IllegalArgumentException("Il piatto non può essere null");
+        if(piatto.getNome().length() > 50) throw new IllegalArgumentException("Nome troppo lungo");
+        if(piatto.getFoto().length() > 50) throw new IllegalArgumentException("Nome foto troppo lungo");
+        if(piatto.getCategoria().length() > 30) throw new IllegalArgumentException("Categoria troppo lungo");
+        if(piatto.getPrezzoCent() < 10) throw new IllegalArgumentException("Il prezzo non può essere inferiore a 10 centesimi");
+        
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "INSERT INTO piatto (nome, categoria, prezzo_cent, foto) "
@@ -72,11 +80,12 @@ public class TitolareManager {
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-            
+            piatto.setId(id);
             
             saveRelationship(id, ing, "piattoXing");
             saveRelationship(id, ingAgg, "piattoXing_ins");
             saveRelationship(id, ingRim, "piattoXing_rem");
+            return piatto;
             
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

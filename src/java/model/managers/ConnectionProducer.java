@@ -7,8 +7,6 @@ package model.managers;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.enterprise.inject.Disposes;
-import javax.enterprise.inject.Produces;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -19,8 +17,8 @@ import javax.sql.DataSource;
  */
 public class ConnectionProducer {
     
-    @Produces
-    private Connection getConnection() {
+    
+    public static Connection getConnection() {
         Connection conn = null;
         try {
             InitialContext ctx = new InitialContext();
@@ -31,9 +29,5 @@ public class ConnectionProducer {
         }
         return conn;
     } 
-    
-    private void closeConnection(@Disposes Connection conn) throws SQLException {
-        conn.close();
-    }
     
 }

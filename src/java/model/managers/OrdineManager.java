@@ -29,12 +29,13 @@ import model.entities.PiattoEffettivo;
 @Singleton
 public class OrdineManager {
 
-    @Inject
+    //@Inject
     Connection conn;
     @Inject
     OrdineDatiSingleton os;
 
     public OrdineManager() {
+        conn = ConnectionProducer.getConnection();
     }
     
     public void salvaConto(String tavolo) {

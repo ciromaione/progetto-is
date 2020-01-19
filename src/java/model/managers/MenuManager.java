@@ -27,8 +27,14 @@ import model.entities.Piatto;
 @Stateless
 public class MenuManager {
 
-    @Inject
+    //@Inject
     Connection conn;
+
+    public MenuManager() {
+        conn = ConnectionProducer.getConnection();
+    }
+    
+    
     
     public Menu getMenu() {
         try {

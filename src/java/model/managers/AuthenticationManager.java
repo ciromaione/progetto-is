@@ -26,10 +26,11 @@ public class AuthenticationManager {
     public static final int TITOLARE = 1;
     public static final int STAFF = 2;
     
-    @Inject 
+   // @Inject 
     private Connection conn;
     
     public AuthenticationManager() {
+        conn = ConnectionProducer.getConnection();
     }
     
     public boolean loginTitolare(String password) {
