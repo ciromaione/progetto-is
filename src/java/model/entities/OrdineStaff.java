@@ -22,6 +22,10 @@ public class OrdineStaff implements Serializable {
    private List<PiattoEffettivo> piatti;
    private Integer totaleCent;
 
+    public OrdineStaff() {
+    }
+   
+
     public OrdineStaff(String tavolo, List<PiattoEffettivo> piatti, Integer TotaleCent) {
         this.tavolo = tavolo;
         this.piatti = piatti;
@@ -80,5 +84,11 @@ public class OrdineStaff implements Serializable {
                 return price.substring(0, size-2)+","+price.substring(size-2);
         }
     }
+
+    @Override
+    public String toString() {
+        return "OrdineStaff{" + "id=" + id + ", tavolo=" + tavolo + ", piatti=" + piatti.toString() + ", totaleCent=" + totaleCent + '}';
+    }
    
+    
 }

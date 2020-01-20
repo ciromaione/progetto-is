@@ -80,13 +80,13 @@ public class AggiungiPortataServlet extends HttpServlet {
             if (index == -1) {
                 ext = ".png";
             } else {
-                ext = fileName.substring(index + 1);
+                ext = "."+fileName.substring(index + 1);
             }
                                 
             InputStream initialStream = filePart.getInputStream();
             
-            fileName = "img_"+FotoIdManager.getInstance().getNewIndex();
-            String newFilePath = getServletContext().getRealPath("img")+fileName+ext;
+            fileName = "img_"+FotoIdManager.getInstance().getNewIndex()+ext;
+            String newFilePath = getServletContext().getRealPath("img")+fileName;
             
             File targetFile = new File(newFilePath);
             
@@ -109,6 +109,7 @@ public class AggiungiPortataServlet extends HttpServlet {
             piatto.setNome(nome);
             piatto.setCategoria(categoria);
             piatto.setPrezzoCent(prezzoCent);
+            piatto.setFoto(fileName);
             
             tm.aggiungiPiatto(piatto, ing, ingAgg, ingRim);
             

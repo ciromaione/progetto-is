@@ -18,7 +18,7 @@
         <div class="container">
             <h2 class="title">Aggiungi Piatto</h2>
             
-            <form action="aggiungi" method="POST" id="form" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+            <form action="aggiungi" method="POST" id="form" style="max-width: 700px; margin-left: auto; margin-right: auto;" enctype="multipart/form-data">
                 
                 <div class="form-group row">
                     <label for="nome" class="col-3 col-form-label">Nome Piatto</label>
@@ -31,9 +31,10 @@
                     <label for="categoria" class="col-3 col-form-label">Categoria Piatto</label>
                     <div class="col-9">
                         <select class="form-control" id="categoria" name="categoria">
-                            <% for(String categoria: categorie) { %>
-                            <option value="categoria1"><%=categoria %></option>
-                            <% } %>
+                            <option value="panini">Panini</option>
+                            <option value="fritti">Fritti</option>
+                            <option value="dolci">Dolci</option>
+                            <option value="bibite">Bibite</option>
                         </select>
                     </div>
                 </div>

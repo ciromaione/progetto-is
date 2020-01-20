@@ -72,5 +72,10 @@ public class PiattoEffettivo implements Serializable {
     public void setRimozioni(List<String> rimozioni) {
         this.rimozioni = rimozioni;
     }
+
+    @Override
+    public String toString() {
+        return "PiattoEffettivo{" + "idPiatto=" + idPiatto + ", nomePiatto=" + nomePiatto + ", quantita=" + quantita + ", aggiunte=" + aggiunte + ", rimozioni=" + rimozioni + '}';
+    }
     
 }

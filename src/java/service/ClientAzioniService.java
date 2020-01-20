@@ -14,6 +14,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.entities.Conto;
@@ -37,11 +38,12 @@ public class ClientAzioniService {
 
     @POST
     @Path("conferma")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response confermaOrdine(OrdineStaff ordine) {
+    public Response confermaOrdine(@QueryParam("ordine") String ordineJSON) {
+        Gson gson = new Gson();
+        OrdineStaff ordine = gson.fromJson(ordineJSON, OrdineStaff.class);
         try {
-            OrdineStaff ord = om.addOrdine(ordine);
-            String ordineJSON = new Gson().toJson(ord);
+            ordine = om.addOrdine(ordine);
+            ordineJSON = gson.toJson(ordine);
             eventConferma.fire(ordineJSON);
         } catch (Throwable t) {
             t.printStackTrace();
