@@ -6,6 +6,7 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,6 +26,12 @@ public class OrdineStaff implements Serializable {
     public OrdineStaff() {
     }
    
+    public OrdineStaff(OrdineStaff ordine) {
+        this.id = ordine.getId();
+        this.tavolo = ordine.getTavolo();
+        this.totaleCent = ordine.getTotaleCent();
+        this.piatti = new LinkedList<>(ordine.piatti);
+    }
 
     public OrdineStaff(String tavolo, List<PiattoEffettivo> piatti, Integer TotaleCent) {
         this.tavolo = tavolo;
@@ -84,7 +91,8 @@ public class OrdineStaff implements Serializable {
                 return price.substring(0, size-2)+","+price.substring(size-2);
         }
     }
-
+    
+    
     @Override
     public String toString() {
         return "OrdineStaff{" + "id=" + id + ", tavolo=" + tavolo + ", piatti=" + piatti.toString() + ", totaleCent=" + totaleCent + '}';

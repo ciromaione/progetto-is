@@ -50,7 +50,7 @@ public class OrdineDatiSingleton {
                     .addTotaleCent(ordine.getTotaleCent());
         }
         else
-            ordiniAttivi.put(ordine.getTavolo(), ordine);
+            ordiniAttivi.put(ordine.getTavolo(), new OrdineStaff(ordine));
         
         int id = getId();
         ordiniDaCompletare.put(id, ordine);
