@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import model.entities.Ingrediente;
@@ -23,7 +25,7 @@ import model.entities.Piatto;
 @Stateless
 public class TitolareManager {
     
-    public class PiattoXQuantita {
+    public static class PiattoXQuantita {
         private Piatto piatto;
         private int quantita;
 
@@ -105,6 +107,12 @@ public class TitolareManager {
     }
     
     public int aggiungiIngrediente(Ingrediente ingrediente) {
+        
+        if(ingrediente == null) throw new IllegalArgumentException("L'ingrediente non può essere null");
+        if(ingrediente.getNome().length() > 50) throw new IllegalArgumentException("Nome troppo lungo");
+        if(ingrediente.getCategoria().length() > 30) throw new IllegalArgumentException("Categoria troppo lunga");
+        if(ingrediente.getSovrapprezzoCent() < 0) throw new IllegalArgumentException("Il prezzo non può essere negativo");
+        
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "INSERT INTO ingrediente (nome, categoria, sovrapprezzo_cent) "
@@ -126,6 +134,15 @@ public class TitolareManager {
     }
     
     public List<PiattoXQuantita> popolaritaPiattiMensile(int mese, int anno) {
+        
+        GregorianCalendar oggi = new GregorianCalendar();
+        int meseOggi = oggi.get(Calendar.MONTH)+1;
+        int annoOggi = oggi.get(Calendar.YEAR);
+        
+        if(mese < 1 || mese > 12) throw new IllegalArgumentException("Mese non valido");
+        if(anno < 2019 || anno > annoOggi) throw new IllegalArgumentException("Anno non valido");
+        if(anno == annoOggi && mese > meseOggi) throw new IllegalArgumentException("La data é nel futuro");
+        
         try {
             PreparedStatement ps = conn.prepareStatement(""
                     + "SELECT p.nome, p.categoria, p.prezzo_cent, SUM(op.quantita) AS quantita, p.id "
