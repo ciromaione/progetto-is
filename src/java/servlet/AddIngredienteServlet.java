@@ -63,9 +63,12 @@ public class AddIngredienteServlet extends HttpServlet {
             Gson gson = new Gson();
             
             Ingrediente ing = gson.fromJson(ingrediente, Ingrediente.class);
-            
-            int id = tm.aggiungiIngrediente(ing);
-            
+            int id = -1;
+            try {
+                id = tm.aggiungiIngrediente(ing);
+            } catch (Exception e) {
+                response.getWriter().append("false");
+            }
             response.getWriter().append(""+id);
                     
         }

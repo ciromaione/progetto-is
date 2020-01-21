@@ -179,7 +179,21 @@
         </div>
 
 
-
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="successo">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    Piatto Aggiunto con successo!
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="fallimento">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    Ingrediente già presente!
+                </div>
+            </div>
+        </div>
 
 
         <%@include file="imports.html" %>

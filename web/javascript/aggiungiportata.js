@@ -27,8 +27,11 @@ $(document).ready(() => {
         let ingrediente = new Ingrediente(nome, categoria, sovrapprezzo);
         
         $.post("addingrediente", {"ingrediente": JSON.stringify(ingrediente)}, (data, status) => {
-            $('#ingredienti').prepend(`<option value="${data}">${nome}</option>`);
-            $('#ingredienti').val(data);
+            if(data == "false") $('#fallimento').modal("show");
+            else {
+                $('#ingredienti').prepend(`<option value="${data}">${nome}</option>`);
+                $('#ingredienti').val(data);
+            }
             $('#aggiungi-ingrediente').modal('toggle');
         });
     });
