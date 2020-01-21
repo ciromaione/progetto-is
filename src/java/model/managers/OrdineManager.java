@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import model.entities.Conto;
 import model.entities.OrdineStaff;
@@ -26,19 +26,22 @@ import model.entities.PiattoEffettivo;
  *
  * @author ciro
  */
-@Singleton
+@Stateless
 public class OrdineManager {
 
     //@Inject
-    Connection conn;
+    private Connection conn;
     @Inject
-    OrdineDatiSingleton os;
+    private OrdineDatiSingleton os;
 
     public OrdineManager() {
         conn = ConnectionProducer.getConnection();
     }
     
-    public void salvaConto(String tavolo) {
+    public int salvaConto(String tavolo) {
+        
+        if(tavolo == null) throw new IllegalArgumentException("Il tavolo non può essere null");
+        
         OrdineStaff ordineStaff = os.removeFromOrdiniAttivi(tavolo);
         if(ordineStaff == null)
             throw new RuntimeException("Ordine non presente in lista");
@@ -65,6 +68,8 @@ public class OrdineManager {
             
             salvaPiatti(id, ordineStaff.getPiatti());
             
+            return id;
+            
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -81,10 +86,22 @@ public class OrdineManager {
     
     
     public OrdineStaff addOrdine(OrdineStaff ordine) {
+        
+        if(ordine == null) throw new IllegalArgumentException("L'ordine non può essere null");
+        if(ordine.getTavolo() == null) throw new IllegalArgumentException("Il tavolo non può essere null");
+        if(ordine.getPiatti() == null) throw new IllegalArgumentException("L'ordine deve contenere almeno un piatto");
+        if(ordine.getPiatti().isEmpty()) throw new IllegalArgumentException("L'ordine deve contenere almeno un piatto");
+        if(ordine.getTotaleCent() == null) throw new IllegalArgumentException("Il prezzo deve essere definito");
+        if(ordine.getTotaleCent() <= 0) throw new IllegalArgumentException("Il prezzo deve essere positivo");
+        
         return os.addOrdine(ordine);
     }
     
     public Conto addRichiestaConto(Conto conto) {
+        
+        if(conto == null) throw new IllegalArgumentException("Il conto non può essere null");
+        if(conto.getTavolo() == null) throw new IllegalArgumentException("Il tavolo non può essere null");
+        
         return os.addRichiestaConto(conto);
     }
     

@@ -59,7 +59,9 @@ public class OrdineDatiSingleton {
     }
     
     public Conto addRichiestaConto(Conto conto) {
-        String totale = ordiniAttivi.get(conto.getTavolo()).getPrezzoString();
+        OrdineStaff ordine =ordiniAttivi.get(conto.getTavolo());
+        if(ordine == null) throw new RuntimeException("ordine non presente in lista");
+        String totale = ordine.getPrezzoString();
         conto.setTotale(totale);
         richiesteConto.put(conto.getTavolo(), conto);
         return conto;
