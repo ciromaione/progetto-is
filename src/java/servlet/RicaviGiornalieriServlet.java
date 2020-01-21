@@ -62,12 +62,14 @@ public class RicaviGiornalieriServlet extends HttpServlet {
         else if(authAs == AuthenticationManager.TITOLARE) {
             
             String data = request.getParameter("date");
+            System.out.println(data);
             Date date1 = null;
             if(data == null)
                 date1 = new Date(new java.util.Date().getTime());
             else {
                 try {  
-                     date1 = (Date) new  SimpleDateFormat( "gg / MM / aaaa" ).parse (data);
+                     java.util.Date d = new SimpleDateFormat("yyyy-MM-dd").parse (data);
+                     date1 = new Date(d.getTime());
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }

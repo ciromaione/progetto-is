@@ -12,9 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.ApplicationException;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import model.entities.Ingrediente;
 import model.entities.Piatto;
 

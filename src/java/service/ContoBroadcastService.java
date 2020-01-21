@@ -6,6 +6,7 @@
 package service;
 
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.event.Observes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,6 +22,7 @@ import javax.ws.rs.sse.SseEventSink;
  */
 @Path("staff/conti")
 @Singleton
+@Startup
 public class ContoBroadcastService extends AbstractBroadcastService {
 
     @GET

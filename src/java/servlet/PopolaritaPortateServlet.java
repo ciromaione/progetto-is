@@ -71,7 +71,7 @@ public class PopolaritaPortateServlet extends HttpServlet {
                 mese = Integer.parseInt(meseString);
                 anno = Integer.parseInt(annoString);
             }
-            
+            System.out.println(mese+" "+anno);
             List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(mese, anno);
             request.setAttribute("piatti", piatti);
             request.getRequestDispatcher("popolaritaPiatti.jsp")

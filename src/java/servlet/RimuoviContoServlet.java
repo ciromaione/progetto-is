@@ -48,6 +48,7 @@ public class RimuoviContoServlet extends HttpServlet {
         else {
             String tavolo = request.getParameter("tavolo");
             om.removeFromRichiesteConto(tavolo);
+            om.salvaConto(tavolo);
             response.sendRedirect("richiesteconto");
         }
         
