@@ -70,11 +70,15 @@ $(document).ready(() => {
         
     });
     
-    $('#submit-btn').click(() => {
+    $('#form').submit(() => {
         $('#ing-fissi').val(JSON.stringify(ingFissi));
         $('#ing-agg').val(JSON.stringify(ingAgg));
         $('#ing-rim').val(JSON.stringify(ingRim));
-        $('#form').submit();
+        return true;
+    });
+    
+    $('#form-ing').submit(() => {
+        return false;
     });
     
 });

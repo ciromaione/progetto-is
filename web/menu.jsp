@@ -34,7 +34,50 @@
                 <li class="nav-item">
                     <a class="nav-link" id="riepilogo-tab" data-toggle="tab" href="#riepilogo" role="tab" aria-controls="riepilogo" aria-selected="false">Il Tuo Ordine</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="richiestaConto" data-toggle="modal" data-target="#richiestaContoModal">Richiedi Conto</a>
+                </li>
             </ul>
+
+            <!-- Modal richiesta conto -->
+            <div class="modal fade" id="richiestaContoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Richiedi Conto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <select id="metodoDiPagamento" class="form-control">
+                                <option value="contanti">Contanti</option>
+                                <option value="carta">Carta</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="btn-richiedi-conto">Conferma</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Small modal -->
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-conferma-invio">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        Invio Effettuato.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-conto-richiesto">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        Conto Richiesto.
+                    </div>
+                </div>
+            </div>
 
             <div class="tab-content" id="myTabContent">
 
@@ -153,7 +196,7 @@
                                         </div>
                                     </div>
                                     <%}
-                                    }%>
+                                        }%>
                                     <hr>
                                     <div class="form-group row">
                                         <div class="col-2"></div>
@@ -174,7 +217,7 @@
                         </div>
                     </div>
                     <%}
-                    }%>
+                        }%>
 
                 </div>  
                 <%}%>

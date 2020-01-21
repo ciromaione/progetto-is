@@ -33,7 +33,8 @@
     }
 
 
-    let ordine = new Ordine(1);
+    let tavolo = "1";
+    let ordine = new Ordine(tavolo);
 
     function aggiungiPiattoAOrdine(id, nome, prezzo) {
         let selQ = `#select-${id}`;
@@ -89,8 +90,20 @@ $(document).ready(() => {
 
     $('#confermaordinebtn').click(() => {
 
-        $.post("aggiungiordine", {"ordine":JSON.stringify(ordine)}, (data, status) => {});
+        $.post("aggiungiordine", {"ordine":JSON.stringify(ordine)}, (data, status) => {
+            $('#tbody').text("");
+            ordine = new Ordine(tavolo);
+            $('#modal-conferma-invio').modal('show');
+        });
     });
 
+    
+    $('#btn-richiedi-conto').click(() => {
+        $('#modal-conto-richiesto').modal('show');
+        let metodo = $('#metodoDiPagamento').val();
+        $.get(`rest/client/azioni/conto/${tavolo}/${metodo}`, (data, status) => {
+           location.reload(); 
+        });
+    });
 
 });
