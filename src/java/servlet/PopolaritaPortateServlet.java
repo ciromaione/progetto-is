@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +73,14 @@ public class PopolaritaPortateServlet extends HttpServlet {
                 anno = Integer.parseInt(annoString);
             }
             System.out.println(mese+" "+anno);
-            List <TitolareManager.PiattoXQuantita> piatti=tm.popolaritaPiattiMensile(mese, anno);
+            List <TitolareManager.PiattoXQuantita> piatti = null;
+            try {
+                piatti=tm.popolaritaPiattiMensile(mese, anno);
+            } catch (EJBException e) {
+                request.setAttribute("msg", "input non valido");
+                request.getRequestDispatcher("error.jsp")
+                        .forward(request, response);
+            }
             request.setAttribute("piatti", piatti);
             request.getRequestDispatcher("popolaritaPiatti.jsp")
                     .forward(request, response);

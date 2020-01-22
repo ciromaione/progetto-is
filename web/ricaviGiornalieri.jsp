@@ -46,7 +46,7 @@
             </div>
             <div>
                 <h3 style="text-align: center">Ricavi Totali = <%=getPrezzoString(totale)%> €</h3>
-                <div style="border: groove; width: 32%; margin-left: 34%; margin-top: 2%;">
+                <div>
                     
                     <table class="table">
                         <thead>

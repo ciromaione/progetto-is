@@ -27,7 +27,7 @@ $(document).ready(() => {
         let ingrediente = new Ingrediente(nome, categoria, sovrapprezzo);
         
         $.post("addingrediente", {"ingrediente": JSON.stringify(ingrediente)}, (data, status) => {
-            if(data == "false") $('#fallimento').modal("show");
+            if(data == "false") alert("ingrediente già presente");
             else {
                 $('#ingredienti').prepend(`<option value="${data}">${nome}</option>`);
                 $('#ingredienti').val(data);
