@@ -18,6 +18,17 @@ import model.entities.OrdineStaff;
  *
  * @author ciro
  */
+
+/*
+* Singleton che memorizza: 
+* -gli ordiniAttivi, ovvero l'insieme degli ordini relativi a un
+* tavolo di cui non è stato ancora richiesto il conto;
+* -gli ordiniDaCompletare, ovvero gli ordini di cui non è stata ancora completata la preparazione;
+* -le richiesteConto.
+* Per gli ordiniDaCompletare, ad ogni aggiunta di un ordine, viene associato un id intero univoco generato con un 
+* semplice metodo autoincrementale, si tiene traccia dell'ultimo id usato con la varile lastId che viene azzerata
+* ogni qual volta gli ordini attivi e gli oridi da completare sono entrambi vuoti.
+*/
 @Singleton
 @Lock(LockType.WRITE)
 public class OrdineDatiSingleton {

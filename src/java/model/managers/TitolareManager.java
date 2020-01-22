@@ -22,9 +22,19 @@ import model.entities.Piatto;
  *
  * @author ciro
  */
+
+/*
+* Questa classe permette di effettuare le operazioni riservate al titolare
+* offre la modifica del menu e permette di ottenere i guadagni giornalieri relativi a ogni piatto, il totale incassato
+* un determinato giorno e la lista dei piatti ordinati per unità vendute relative ad un mese
+*/
 @Stateless
 public class TitolareManager {
     
+    /*
+    * classe che rappresenta il prodotto cartesiano piatto X quantita
+    * utile per la costruzione del risultato dei metodi successivi
+    */
     public static class PiattoXQuantita {
         private Piatto piatto;
         private int quantita;
@@ -133,6 +143,12 @@ public class TitolareManager {
         }
     }
     
+    /*
+    * Metodo che restituisce la popolarità dei piatti di un determinato mese
+    * @param mese il mese di cui si vuole cercare la popolarità dei piatti
+    * @param anno anno di cui si vuole cercare la popolarità dei piatti venduti
+    * @result restituisce la lista dei piatti più venduti durante il messe passato e relativa quantità
+    */
     public List<PiattoXQuantita> popolaritaPiattiMensile(int mese, int anno) {
         
         GregorianCalendar oggi = new GregorianCalendar();
@@ -172,7 +188,9 @@ public class TitolareManager {
         }
         
     }
-    
+    /*
+    * restituisce la lista dei piatti con relativa quantità venduti in un giorno
+    */
     public List<PiattoXQuantita> guadagnoGiornalieroPiatti(Date data) {
         try {
             PreparedStatement ps = conn.prepareStatement(""
@@ -199,6 +217,9 @@ public class TitolareManager {
         }
     }
     
+    /*
+    * restituisce il totale in centesimi incassate nella data inserita come parametro
+    */
     public int guadagnoGiornaliero(Date data) {
         try {
             PreparedStatement ps = conn.prepareStatement(""

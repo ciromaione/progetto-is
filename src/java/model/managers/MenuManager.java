@@ -24,6 +24,9 @@ import model.entities.Piatto;
  *
  * @author ciro
  */
+/*
+* Classe che consente di ottenere il Menu completo oppure le categorie e gli ingredienti
+*/
 @Stateless
 public class MenuManager {
 

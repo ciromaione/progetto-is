@@ -26,6 +26,11 @@ import model.entities.PiattoEffettivo;
  *
  * @author ciro
  */
+
+/*
+* Questa classe permette di salvare un conto e offre una facciata che nasconde
+* le operazioni di OrdineDatiSingleton
+*/
 @Stateless
 public class OrdineManager {
 

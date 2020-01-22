@@ -19,6 +19,12 @@ import java.util.logging.Logger;
  *
  * @author ciro
  */
+
+/*
+* Singleton che genera indici univoci per costruire il nome di un'immagine aggiunta
+* al sistema.
+* Mantiene l'ultimo indice aggiunto in un file.
+*/
 public class FotoIdManager {
     
     private static FotoIdManager instance = null;

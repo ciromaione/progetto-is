@@ -20,6 +20,13 @@ import javax.inject.Inject;
  *
  * @author ciro
  */
+
+/*
+* Classe che offre i metodi per verificare la correttezza della passwordi del titolare o dello staff
+* e di aggiornarle a dovere.
+* Cifra la password utilizzando un algoritmo l'algoritmo di hashing SHA-1
+*
+*/
 @Stateless
 public class AuthenticationManager {
     
