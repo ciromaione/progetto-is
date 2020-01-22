@@ -34,7 +34,7 @@ public class ContoBroadcastService extends AbstractBroadcastService {
     
     @Override
     public void sender(@Observes @ContoEvent String data) {
-        System.out.println(data);
-        this.broadcaster.broadcast(this.sse.newEvent(data));
+        if(this.broadcaster != null)
+            this.broadcaster.broadcast(this.sse.newEvent(data));
     }
 }
