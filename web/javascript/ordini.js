@@ -10,7 +10,7 @@ $(document).ready(function () {
                 events.onmessage = (mess) => {
                     let ordine = JSON.parse(mess.data);
                     
-                    let num = parseInt($("#numero-ordini").val(), 10);
+                    let num = parseInt($("#numero-ordini").text(), 10) + 1;
                     $("#numero-ordini").text(num);
 
                     let nuovoOrdine = `

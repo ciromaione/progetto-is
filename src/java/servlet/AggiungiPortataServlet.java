@@ -85,7 +85,7 @@ public class AggiungiPortataServlet extends HttpServlet {
                                 
             InputStream initialStream = filePart.getInputStream();
             
-            fileName = "img_"+FotoIdManager.getInstance().getNewIndex()+ext;
+            fileName = "/img_"+FotoIdManager.getInstance().getNewIndex()+ext;
             String newFilePath = getServletContext().getRealPath("img")+fileName;
             
             File targetFile = new File(newFilePath);
